@@ -3,6 +3,9 @@ import extend from 'extend';
 const initialState = {
     user_profile: null,
     user_type: null,
+    // for chooseSpeciality action
+    speciality_selected: "", 
+    list_of_doctors: "",
 }
 
 export default function (state = initialState, action){
@@ -17,6 +20,15 @@ export default function (state = initialState, action){
         case 'USER_TYPE':
             return extend ({}, state, {
                 user_type: action.payload
+            })
+
+        case "CHOOSE_SPECIALITY":
+
+            console.log(action.speciality_selected, ":", action.payload);
+
+            return extend ({}, state, {
+                speciality_selected: action.speciality_selected,
+                list_of_doctors: action.payload,
             })
 
         default:

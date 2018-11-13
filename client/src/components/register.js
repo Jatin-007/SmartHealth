@@ -5,7 +5,6 @@ import {withRouter} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import GoogleAuthSignIn from './googleAuthSignIn'
-// import {withStyles} from '@material-ui/core/styles';
 
 const INITIAL_STATE = {
     firstName: '',
@@ -29,8 +28,6 @@ class Register extends Component {
     handleSubmit(e){
         const {history} = this.props;
 
-        console.log(history);
-
         e.preventDefault();
         const {
             email, password1
@@ -39,6 +36,7 @@ class Register extends Component {
         auth.doCreateUserWithEmailAndPassword(email, password1)
         .then(authUser => {
           this.setState({ ...INITIAL_STATE });
+          
           history.push('/home');
         })
         .catch(error => {
