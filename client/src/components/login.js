@@ -70,6 +70,7 @@ class Login_Page extends Component {
                         <TextField
                             label="password"
                             placeholder = "password here"
+                            type="password"
                             multiline
                             value={password}
                             onChange = {event => this.setState({'password': event.target.value})}

@@ -1,53 +1,32 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
-// BookAppointment
-
-import PatientRegister from './PatientRegister';
+import {Link, Redirect} from 'react-router-dom';
 import DoctorProfile from './DoctorPanel/DoctorProfile';
+import Button from '@material-ui/core/Button';
 
 class PatientPanel extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            renderRedirect: false,
-        }
-    }
+    render () {
+        const { isRegistered } = this.props;
 
-    componentDidUpdate(){
-        const {isRegistered} = this.props;
-        
-        if(!isRegistered){
+        if (!isRegistered) {
             return <Redirect to="/register-patient"/>
         }
-    }
 
-    render () {
-        const {isRegistered} = this.props;
-        const test = !isRegistered ? this.setState({renderRedirect:true}) : '';
-        
         return (
             <div>
-                {this.state.renderRedirect && <Redirect to="/register-patient"/>}
                 {
                     isRegistered &&
-                    <DoctorProfile/>
+                    <div>
+                            <Link to="book-appointment">
+                                <Button variant="outlined" color="primary" >
+                                    Book Appointment
+                                </Button>
+                            </Link>
+                        <DoctorProfile/>
+                    </div>
                 }
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
-    const {
-        user_profile,
-        user_type
-    }= state.authReducer;
-
-    return {
-        user_profile,
-        user_type
-    }
-}
-
-export default connect()(PatientPanel);
+export default PatientPanel;

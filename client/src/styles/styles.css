@@ -28,3 +28,32 @@
     right: 100px;
     margin-top: 20px !important;
 }
+
+/* Book Appointment */
+.book-appointment-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+    margin: 10px;
+    background-color: #f3f3f3;
+    height: 100%;
+    border-radius: 7px;
+    border: 1px solid #f2f2f2;
+}
+
+.doctor-card-div{
+    width: 30%;
+    margin: 10px;
+    align-content: center;
+}
+
+.doc-image {
+    display: flex;
+    justify-content: center;
+}
+
+.card-action-button-div > Button{
+    display: flex;
+    align-items: flex-end;
+}

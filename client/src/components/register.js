@@ -5,7 +5,6 @@ import {withRouter} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import GoogleAuthSignIn from './googleAuthSignIn'
-// import {withStyles} from '@material-ui/core/styles';
 
 const INITIAL_STATE = {
     firstName: '',
@@ -29,8 +28,6 @@ class Register extends Component {
     handleSubmit(e){
         const {history} = this.props;
 
-        console.log(history);
-
         e.preventDefault();
         const {
             email, password1
@@ -39,6 +36,7 @@ class Register extends Component {
         auth.doCreateUserWithEmailAndPassword(email, password1)
         .then(authUser => {
           this.setState({ ...INITIAL_STATE });
+          
           history.push('/home');
         })
         .catch(error => {
@@ -70,7 +68,6 @@ class Register extends Component {
                         label="firstname"
                         value={firstName}
                         placeholder = "First Name"
-                        multiline
                         onChange={e => {this.setState({'firstName' : e.target.value})}}
                     />
 
@@ -78,7 +75,6 @@ class Register extends Component {
                         label="lastname"
                         value={lastName}
                         placeholder = "Last Name"
-                        multiline
                         onChange={e => {this.setState({'lastName' : e.target.value})}}
                     />
                     </div>
@@ -88,7 +84,6 @@ class Register extends Component {
                         label="email"
                         value={email}
                         placeholder = "enter your email here here"
-                        multiline
                         onChange={e => {this.setState({'email' : e.target.value})}}
                     />
                     </div>
@@ -100,7 +95,6 @@ class Register extends Component {
                         value={password1}
                         onChange={e => {this.setState({'password1' : e.target.value})}}
                         placeholder = "password here"
-                        multiline
                     />
                     </div>
 
@@ -110,7 +104,6 @@ class Register extends Component {
                         type="password"
                         value={password2}
                         placeholder = "sssshhhh -2 "
-                        multiline
                         onChange={e => {this.setState({'password2' : e.target.value})}}
                     />
                     </div>

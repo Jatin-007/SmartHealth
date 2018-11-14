@@ -1,3 +1,4 @@
+import {database} from '../firebase/config';
 
 export function userAuth(values){
     return {
@@ -19,5 +20,19 @@ export function userTypeAction(user_data, uid){
     return {
         type: "USER_TYPE",
         payload: user_type
+    }
+}
+
+export function chooseSpeciality(val ){
+    let data = {};
+    database.ref(`USERS/DOCTOR/specialization/${val}`).on('value', (snapshot) => {
+        data = snapshot.val();
+    })
+
+    // chooseSpeciality
+    return {
+        type: "CHOOSE_SPECIALITY",
+        payload: data,
+        speciality_selected: val,
     }
 }
