@@ -68,7 +68,6 @@ class Register extends Component {
                         label="firstname"
                         value={firstName}
                         placeholder = "First Name"
-                        multiline
                         onChange={e => {this.setState({'firstName' : e.target.value})}}
                     />
 
@@ -76,7 +75,6 @@ class Register extends Component {
                         label="lastname"
                         value={lastName}
                         placeholder = "Last Name"
-                        multiline
                         onChange={e => {this.setState({'lastName' : e.target.value})}}
                     />
                     </div>
@@ -86,7 +84,6 @@ class Register extends Component {
                         label="email"
                         value={email}
                         placeholder = "enter your email here here"
-                        multiline
                         onChange={e => {this.setState({'email' : e.target.value})}}
                     />
                     </div>
@@ -98,7 +95,6 @@ class Register extends Component {
                         value={password1}
                         onChange={e => {this.setState({'password1' : e.target.value})}}
                         placeholder = "password here"
-                        multiline
                     />
                     </div>
 
@@ -108,7 +104,6 @@ class Register extends Component {
                         type="password"
                         value={password2}
                         placeholder = "sssshhhh -2 "
-                        multiline
                         onChange={e => {this.setState({'password2' : e.target.value})}}
                     />
                     </div>

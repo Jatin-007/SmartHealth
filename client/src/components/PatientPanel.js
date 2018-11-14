@@ -4,36 +4,24 @@ import DoctorProfile from './DoctorPanel/DoctorProfile';
 import Button from '@material-ui/core/Button';
 
 class PatientPanel extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            renderRedirect: false,
-        }
-    }
-
-    componentDidUpdate(){
-        const {isRegistered} = this.props;
-
-        if(!isRegistered){
-            this.setState({renderRedirect: true});
-        }
-    }
-
     render () {
-        const {isRegistered} = this.props;
-        
+        const { isRegistered } = this.props;
+
+        if (!isRegistered) {
+            return <Redirect to="/register-patient"/>
+        }
+
         return (
             <div>
-                {this.state.renderRedirect && <Redirect to="/register-patient"/>}
                 {
                     isRegistered &&
                     <div>
                             <Link to="book-appointment">
-                        <Button variant="outlined" color="primary" >
-                            Book Appointment
-                        </Button>
+                                <Button variant="outlined" color="primary" >
+                                    Book Appointment
+                                </Button>
                             </Link>
-                    <DoctorProfile/>
+                        <DoctorProfile/>
                     </div>
                 }
             </div>
