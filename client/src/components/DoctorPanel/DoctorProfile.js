@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {database} from '../../firebase/config';
 
+import {connect} from 'react-redux';
+
 class DoctorProfile extends Component {
 
     componentDidUpdate(){
@@ -18,5 +20,15 @@ class DoctorProfile extends Component {
     }
 }
 
-export default DoctorProfile;
+const mapStateToProps = state => {
+    const {
+        selected_doctor_profile
+    } = state.authReducer;
+
+    return {
+        selected_doctor_profile
+    }
+}
+
+export default connect(mapStateToProps)(DoctorProfile);
 // this will be used by patients

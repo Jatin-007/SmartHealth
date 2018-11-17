@@ -17,7 +17,6 @@ class PatientRegister extends Component {
         this.state = {
             title:"",
             first_name: "",
-            middle_name: "",
             last_name: "",
             gender: "",
             marital_status: "",
@@ -49,7 +48,6 @@ class PatientRegister extends Component {
                 personal_information: {
                     title: this.state.title,
                     first_name: this.state.first_name,
-                    middle_name: this.state.middle_name,
                     last_name: this.state.last_name,
                     gender: this.state.gender,
                     marital_status: this.state.marital_status,
@@ -84,9 +82,7 @@ class PatientRegister extends Component {
     displayForm(){
 
         const {
-            title,
             first_name,
-            middle_name,
             last_name,
             email,
             phone,
@@ -124,15 +120,6 @@ class PatientRegister extends Component {
                                 margin="normal"
                                 value={first_name}
                                 onChange={e => this.setState({first_name: e.target.value})}
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                id="standard-bare"
-                                placeholder="Middle Name"
-                                margin="normal"
-                                value={middle_name}
-                                onChange={e => this.setState({middle_name: e.target.value})}
                             />
                         </div>
                         <div>

@@ -57,3 +57,24 @@
     display: flex;
     align-items: flex-end;
 }
+
+/* ERROR PAGE */
+
+.error-page {
+    display: flex;
+    background: #00AFF9 url(https://www.ezdia.com/wp-content/uploads/2017/12/404-error-page-background-3.png) center/cover no-repeat;
+    margin: 0;
+    height: 100%;
+    color: white;
+}
+
+.error-page > h1 {
+    margin: .8em 3rem;
+    font: 4em Roboto;
+}
+
+.error-page > p {
+    display: inline-block;
+    margin: .2em 3rem;
+    font: 2em Roboto;
+}

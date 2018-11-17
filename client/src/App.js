@@ -21,10 +21,12 @@ import HealthInformation from './components/PatientPanel/HealthInformationForm';
 import OrderMedication from './components/PatientPanel/OrderMedication';
 import BookAppointment from './components/PatientPanel/BookAppointment';
 import DoctorsList from './components/PatientPanel/DoctorsList';
+import Profile from './components/Shared/Profile';
+import Error404 from './components/Shared/Error404';
 
 class App extends Component {
 
-  componentWillMount(){
+  componentDidMount(){
     firebase.auth.onAuthStateChanged(user_data => {
       this.props.userAuth(user_data);
     })
@@ -50,6 +52,8 @@ class App extends Component {
             <Route exact path="/order-medication" component={OrderMedication}/>
             <Route exact path="/book-appointment" component={BookAppointment}/>
             <Route exact path="/choose-doctors" component={DoctorsList}/>
+            <Route exact path="/update-profile" component={Profile}/>
+            <Route exact path="/404" component={Error404}/>
           </div>
         </BrowserRouter>
       </div>
