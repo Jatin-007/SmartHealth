@@ -11,6 +11,8 @@ const initialState = {
     selected_doctor_profile: "", 
     // for doctors
     patient_list_collections: [],
+    // detail profile
+    detail_user_profile: "",
 }
 
 export default function (state = initialState, action){
@@ -40,8 +42,13 @@ export default function (state = initialState, action){
             })
             
         case "DISPLAY_PATIENTS":
-            return (extend, {}, state, {
+            return extend({}, state, {
                 patient_list_collections: action.payload
+            }) 
+            
+        case "DETAIL_USER_PROFILE":
+            return extend({}, state, {
+                detail_user_profile: action.payload
             })    
 
         default:

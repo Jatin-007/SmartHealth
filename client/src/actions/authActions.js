@@ -53,6 +53,13 @@ export function displayPatients(payload){
     }
 }
 
+export function detailUserProfile(val) {
+    return {
+        type: "DETAIL_USER_PROFILE",
+        payload: val
+    }
+}
+
 // export function detail_patient_details(val){
 //     // for showcasing patient
 // }
