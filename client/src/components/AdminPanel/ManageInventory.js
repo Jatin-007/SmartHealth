@@ -3,6 +3,13 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {database} from '../../firebase/config';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
 class ManageInventory extends Component {
     constructor(props){
         super(props);
@@ -32,10 +39,12 @@ class ManageInventory extends Component {
 
             return Object.keys(inventory_list).map(med => {
                 return (
-                    <ul>
-                    <li>{med}</li>
-                    <li>{inventory_list[med]}</li>
-                    </ul>
+                    <TableRow key={med}>
+                        <TableCell component="th" scope="row">
+                        {med}
+                        </TableCell>
+                        <TableCell numeric>{inventory_list[med]}</TableCell>
+                    </TableRow>
                 )
             })
             
@@ -53,7 +62,20 @@ class ManageInventory extends Component {
 
             return (
                 <div>
-                    {this.test()}
+                    <Paper>
+                        <Table>
+                            <TableHead>
+                            <TableRow>
+                                <TableCell>Medicine name</TableCell>
+                                <TableCell numeric>Quantity</TableCell>
+                                <TableCell numeric><button>Reduce</button></TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {this.test()}
+                            </TableBody>
+                        </Table>
+                    </Paper>
                 </div>
             )
     }
