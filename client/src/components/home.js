@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import firebase from 'firebase';
-import {Redirect} from 'react-router-dom';
+// import {Redirect} from 'react-router-dom';
 import DoctorPanel from './DoctorPanel';
 import PatientPanel from './PatientPanel';
 import AdminPanel from './AdminPanel';

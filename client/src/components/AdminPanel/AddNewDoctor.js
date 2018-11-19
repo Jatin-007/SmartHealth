@@ -1,17 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {database} from '../../firebase/config';
-import {Link, Redirect} from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import {Redirect} from 'react-router-dom';
 
-class ManageDoctors extends Component {
+class AddNewDoctor extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+
+        };
+    }
 
     async componentWillMount(){
         const {user_profile, user_type} = this.props;
 
         if(user_profile && user_type){
             if(user_type === "ADMIN"){
+                // need to change the database route
                 await database.ref('/USERS/ADMIN/inventory').on('value', (snapshot) => {
                     this.setState({inventory: snapshot.val()});
                 })
@@ -22,25 +28,20 @@ class ManageDoctors extends Component {
         }
     }
 
-    render() {
+    renderForm(){
+        return (
+            <div className="new-doctor-div">
+                <p>test</p>
+            </div>
+        )
+    }
+
+    render(){
         return (
             <div>
-                <h3>Manage Doctors</h3>
+                <h2>Add a new Doctor here</h2>
                 <hr/>
-                
-                <div>
-                    <p>CRUD OPERATIONS HERE</p>
-                </div>
-
-                <div>
-                    <hr/>
-                    <Link to="/add-doctors">
-                        <Button variant="contained" color="default">
-                            Add a Doctor
-                            <CloudUploadIcon/>
-                        </Button>
-                    </Link>
-                </div>
+                {this.renderForm()}
             </div>
         )
     }
@@ -64,4 +65,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(MapStateToProps, mapDispatchToProps)(ManageDoctors);
+export default connect(MapStateToProps, mapDispatchToProps)(AddNewDoctor);

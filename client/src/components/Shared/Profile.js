@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {detailUserProfile} from '../../actions/authActions';
 import {database} from '../../firebase/config';
+import AdminDoctorProfile from './AdminDoctorProfile';
 
 class Profile extends Component {
 
@@ -19,7 +20,7 @@ class Profile extends Component {
             }
             else if (user_type === "ADMIN" || user_type === "DOCTOR"){
                 user = user_type;
-                await database.ref(`/USERS/${user_type}/${uid}`).on('value', (snapshot) => {
+                await database.ref(`/USERS/${user_type}/detail_user_data/${uid}`).on('value', (snapshot) => {
                     this.props.detailUserProfile(snapshot.val());
                 })
             }
@@ -40,7 +41,9 @@ class Profile extends Component {
         }
         else if((user_type === "DOCTOR" || user_type === "ADMIN") && detail_user_profile){
             return (
-                <div>{user_type}</div>
+                <div>{user_type}
+                <AdminDoctorProfile detail_user_profile={detail_user_profile}/>
+                </div>
             )
         }
 

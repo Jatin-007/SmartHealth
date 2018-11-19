@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 class ManageInventory extends Component {
     constructor(props){
@@ -44,6 +46,11 @@ class ManageInventory extends Component {
                         {med}
                         </TableCell>
                         <TableCell numeric>{inventory_list[med]}</TableCell>
+                        <TableCell>
+                        <Button variant="fab" mini color="secondary" aria-label="Add">
+                           <AddIcon />
+                        </Button>
+                        </TableCell>
                     </TableRow>
                 )
             })
@@ -58,7 +65,6 @@ class ManageInventory extends Component {
 }
 
     render() {
-        const {user_profile, user_type} = this.props;
 
             return (
                 <div>
@@ -68,7 +74,7 @@ class ManageInventory extends Component {
                             <TableRow>
                                 <TableCell>Medicine name</TableCell>
                                 <TableCell numeric>Quantity</TableCell>
-                                <TableCell numeric><button>Reduce</button></TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
