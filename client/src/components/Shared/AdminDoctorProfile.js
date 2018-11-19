@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import PasswordProfile from './PasswordProfile';
+import MiniProfileCard from './MiniProfileCard';
 
 class AdminDoctorProfile extends Component {
 
     renderProfile(detail_user_profile){
         if(detail_user_profile){
-            console.log('zzzzzz', Object.keys(detail_user_profile));
-            // this.setState = {
-            //     // ok... ill wrap up some stuff by tonight .. not a lot of stuff to do tbh
-            // }
+            return Object.keys(detail_user_profile).map(objkey => {
+                return (
+                    <div key={objkey}>
+                        <MiniProfileCard objkey={objkey} val={detail_user_profile[objkey]}/>
+                    </div>
+                )
+            })
         }
     }
 
@@ -16,13 +20,9 @@ class AdminDoctorProfile extends Component {
     render(){
         const {detail_user_profile} = this.props;
 
-        if(detail_user_profile){
-            {this.renderProfile(detail_user_profile)}
-        }
-
         return (
             <div>
-                Rendering admin doctor profile
+                {this.renderProfile(detail_user_profile)}
                 <PasswordProfile/>
             </div>
         )
