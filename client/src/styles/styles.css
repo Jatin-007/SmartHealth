@@ -82,10 +82,10 @@
 /* New doctor div */
 
 .new-doctor-div{
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    /* justify-content: space-between; */
     padding: 20px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     margin: 10px;
     background-color: #f3f3f3;
     height: 100%;

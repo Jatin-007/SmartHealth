@@ -24,6 +24,7 @@ import DoctorsList from './components/PatientPanel/DoctorsList';
 import Profile from './components/Shared/Profile';
 import Error404 from './components/Shared/Error404';
 import AddNewDoctor from './components/AdminPanel/AddNewDoctor';
+import ManagePatients from './components/AdminPanel/ManagePatients';
 
 class App extends Component {
 
@@ -49,6 +50,7 @@ class App extends Component {
             <Route exact path="/manage-doctors" component={ManageDoctors}/>
             <Route exact path="/add-doctors" component={AddNewDoctor}/>
             <Route exact path="/manage-inventory" component={ManageInventory}/>
+            <Route exact path="/manage-patients" component={ManagePatients}/>
             <Route exact path="/insurance-information" component={SecondaryInformationForm}/>
             <Route exact path="/health-information" component={HealthInformation}/>
             <Route exact path="/order-medication" component={OrderMedication}/>
