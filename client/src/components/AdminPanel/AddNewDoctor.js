@@ -4,13 +4,34 @@ import {database} from '../../firebase/config';
 import {Redirect} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Select, MenuItem } from '@material-ui/core';
+
+import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
+
+const maritalState = ["Single", "Married", "Divorced", "Widowed", "Seperated"];
 
 class AddNewDoctor extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            
+            firstName: "",
+            lastName: "",
+            email: "",
+            address: "",
+            maritalState: "",
+            dob: undefined,
+            country:"",
+            province: "",
+            city: "",
+
+            uni_name: "",
+            field_of_study: "",
+            year_of_study: "",
+
+            years_of_exp: "",
+            summary: "",
+
         };
     }
 
@@ -30,18 +51,31 @@ class AddNewDoctor extends Component {
         }
     }
 
+    selectCountry(val){
+        this.setState({country: val})
+    }
+
+    selectProvince(val){
+        this.setState({province: val})
+    }
+
+    onSubmit(){
+        console.log('submit triggers');
+        console.log(this.state);
+    }
+
     renderForm(){
         return (
             <div>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <div className="new-doctor-div">
                         <h3>Personal Information</h3>
                         <hr/>           
                         <div>
                             <TextField
                                 label="First name"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.firstName}
+                                onChange={e => this.setState({firstName: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -49,44 +83,49 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Last name"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.lastName}
+                                onChange={e => this.setState({lastName: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
                         </div>
+
                         <div>
-                            <TextField
-                                label="Marital Status"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
-                                fullWidth
-                                margin="normal"
-                            />
+                            <Select
+                                placeholder="Marital Status"
+                                value={this.state.maritalState}
+                                onChange={e => this.setState({maritalState: e.target.value})}
+                            >
+                            {maritalState.map(status => <MenuItem key={status} value={status}>{status}</MenuItem>)}
+                            </Select>
                         </div>
+                        
                         <div>
                             <TextField
                                 label="email"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.email}
+                                onChange={e => this.setState({email: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
                         </div>
+                        
                         <div>
                             <TextField
                                 label="address"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.address}
+                                onChange={e => this.setState({address: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
                         </div>
+
                         <div>
                             <TextField
                             label="Birthdate"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                type="date"
+                                value={this.state.dob}
+                                onChange={e => this.setState({dob: e.target.value})}
                                 fullWidth
                                 defaultValue="2017-05-24"
                                 type="date"
@@ -94,28 +133,27 @@ class AddNewDoctor extends Component {
                             />
                         </div>
                         <div>
+                            <CountryDropdown
+                                placeholder="country"
+                                value = {this.state.country}
+                                onChange={val => this.selectCountry(val)}
+                                margin="normal"
+                            />
+                        </div>
+                        <div>
+                            <RegionDropdown
+                                label="province"
+                                country={this.state.country}
+                                value={this.state.province}
+                                onChange={val => this.selectProvince(val)}
+                                margin="normal"
+                            />
+                        </div>
+                        <div>
                             <TextField
                                 label="city"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
-                                fullWidth
-                                margin="normal"
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                label="province"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
-                                fullWidth
-                                margin="normal"
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                label="country"
-                                // value{this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.city}
+                                onChange={e => this.setState ({city: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -127,8 +165,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="University name"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.uni_name}
+                                onChange={e => this.setState ({uni_name: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -136,8 +174,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Field of Study"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.field_of_study}
+                                onChange={e => this.setState ({field_of_study: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -145,8 +183,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Year"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.year_of_study}
+                                onChange={e => this.setState ({year_of_study: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -158,8 +196,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Years of experience"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.years_of_exp}
+                                onChange={e => this.setState ({years_of_exp: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -167,8 +205,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Summary of Experience"
-                                // value={this.state.name}
-                                // onChange={this.handleChange('name')}
+                                value={this.state.summary}
+                                onChange={e => this.setState ({summary: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
