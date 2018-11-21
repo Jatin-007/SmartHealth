@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Select, MenuItem } from '@material-ui/core';
 
-import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
+import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 
 const maritalState = ["Single", "Married", "Divorced", "Widowed", "Seperated"];
 
@@ -18,9 +18,9 @@ class AddNewDoctor extends Component {
             firstName: "",
             lastName: "",
             email: "",
+            dob: undefined,
             address: "",
             maritalState: "",
-            dob: undefined,
             country:"",
             province: "",
             city: "",
@@ -29,6 +29,7 @@ class AddNewDoctor extends Component {
             field_of_study: "",
             year_of_study: "",
 
+            specialization: "",
             years_of_exp: "",
             summary: "",
 
@@ -59,9 +60,84 @@ class AddNewDoctor extends Component {
         this.setState({province: val})
     }
 
-    onSubmit(){
-        console.log('submit triggers');
-        console.log(this.state);
+    onSubmit = () => {
+        console.log('triggered');
+        const {user_profile, user_type} = this.props;
+        if(user_profile, user_type) {
+            const uid = user_profile.uid;
+            const {firstName,
+                lastName,
+                email,
+                address,
+                maritalState,
+                dob,
+                country,
+                province,
+                city,
+                uni_name,
+                field_of_study, 
+                year_of_study, 
+                specialization, 
+                years_of_exp, 
+                summary} = this.state;
+
+            const detail_doctor_data = {
+                [uid] : {
+                    personal_information: {
+                        first_name: firstName,
+                        last_name: lastName,
+                        email,
+                        address,
+                        maritalState,
+                        dob,
+                        city,
+                        province,
+                        country,
+                    }
+                }
+            }
+
+            const detail_doctor_study = {
+                [uid] : {
+                    work : {
+                        uni_name,
+                        field_of_study,
+                        year_of_study,
+                        specialization,
+                        years_of_exp,
+                        summary,
+                    }
+                }
+            }
+
+            const specialization_data = {
+                [firstName]: {
+                    uni_name,
+                    field_of_study,
+                    year_of_study,
+                    specialization,
+                    years_of_exp,
+                    summary,
+                }
+            }
+
+            const name = {firstName} + " " + {lastName};
+
+            const user_type_data = {
+                [uid]: {
+                    name,
+                    type: user_type
+                }
+            }
+
+            database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_data);
+            database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_study);
+            console.log('test');
+            database.ref(`/USERS/DOCTOR/specialization/${specialization}/`).update(specialization_data);
+
+            database.ref(`/USERS/users_type/`).update(user_type_data);
+        }
+        
     }
 
     renderForm(){
@@ -123,8 +199,7 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                             label="Birthdate"
-                                type="date"
-                                value={this.state.dob}
+                                selected={this.state.dob}
                                 onChange={e => this.setState({dob: e.target.value})}
                                 fullWidth
                                 defaultValue="2017-05-24"
@@ -193,6 +268,15 @@ class AddNewDoctor extends Component {
                     <div className="new-doctor-div">
                         <h3>Work Experience</h3>
                         <hr/>           
+                        <div>
+                            <TextField
+                                label="Specialization in-"
+                                value={this.state.specialization}
+                                onChange={e => this.setState ({specialization: e.target.value})}
+                                fullWidth
+                                margin="normal"
+                            />
+                        </div>
                         <div>
                             <TextField
                                 label="Years of experience"

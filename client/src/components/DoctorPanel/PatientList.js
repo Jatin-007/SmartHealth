@@ -13,61 +13,57 @@ import {displayPatients} from '../../actions/authActions';
 
 class PatientList extends Component {
     
-    // componentDidMount(){
-    //     database.ref('/USERS/PATIENTS/patients_list').on('value', (snapshot) => {
-    //         this.props.displayPatients(snapshot.val());
-    //     })
-    
-    // }
+    componentDidMount(){
+        database.ref('/USERS/PATIENTS/patients_list').on('value', (snapshot) => {
+            this.props.displayPatients(snapshot.val());
+        })
+    }
 
     // need to take care of the state 
 
     renderTable() {
 
         const {patient_list_collections} = this.props;
-        Object.keys(patient_list_collections).map(val => {
-            patient_list_collections[val]
+        return Object.keys(patient_list_collections).map((val, index) => {
+            // patient_list_collections[val].map(nested_key => {
+                const nested_obj = patient_list_collections[val];
+                // Object.keys(nested_obj).map(nested_val => {
+                    return (
+                        <TableRow key={index}>
+                         <TableCell>
+                         {index}
+                         </TableCell>
+                         <TableCell numeric>{nested_obj["name"]}</TableCell>
+                         <TableCell numeric>{nested_obj["age"]}</TableCell>
+                         <TableCell numeric>{nested_obj["gender"]}</TableCell>
+                     </TableRow>
+                    )
         })
+
+    }
+
+    render (){
 
         return (
             <div>
+                <p>TEST</p>
+                <div>
                 <Paper>
                     <Table>
                         <TableHead>
                         <TableRow>
-                            <TableCell>Dessert (100g serving)</TableCell>
-                            <TableCell numeric>Calories</TableCell>
-                            <TableCell numeric>Fat (g)</TableCell>
-                            <TableCell numeric>Carbs (g)</TableCell>
-                            <TableCell numeric>Protein (g)</TableCell>
+                            <TableCell>Index</TableCell>
+                            <TableCell>Name of patient</TableCell>
+                            <TableCell>Age</TableCell>
+                            <TableCell>Gender</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {/* {rows.map(row => {
-                            return (
-                            <TableRow key={row.id}>
-                                <TableCell component="th" scope="row">
-                                {row.name}
-                                </TableCell>
-                                <TableCell numeric>{row.calories}</TableCell>
-                                <TableCell numeric>{row.fat}</TableCell>
-                                <TableCell numeric>{row.carbs}</TableCell>
-                                <TableCell numeric>{row.protein}</TableCell>
-                            </TableRow>
-                            );
-                        })} */}
+                        {this.renderTable()}
                         </TableBody>
                     </Table>
                 </Paper>
             </div>
-        )
-    }
-
-    render (){
-        console.log('renders');
-        return (
-            <div>
-                <p>TEST</p>
             </div>
         )
     }

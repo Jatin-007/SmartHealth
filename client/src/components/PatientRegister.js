@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import {Redirect} from 'react-router-dom';
 import {database} from '../firebase/config';
 import {connect} from 'react-redux';
+import getAge from 'get-age';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -35,11 +36,14 @@ class PatientRegister extends Component {
         e.preventDefault();
         const { user_profile }= this.props
         const uid = this.props.user_profile.uid;
+        const get_age = getAge(this.state.dob);
 
         const data_for_user_types = {
             [uid]: {
                 name: user_profile.displayName || this.state.first_name,
-                type: "PATIENT"
+                type: "PATIENT",
+                gender: this.state.gender,
+                age: get_age
             }
         }
 
