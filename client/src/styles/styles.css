@@ -57,3 +57,68 @@
     display: flex;
     align-items: flex-end;
 }
+
+/* ERROR PAGE */
+
+.error-page {
+    display: flex;
+    background: #00AFF9 url(https://www.ezdia.com/wp-content/uploads/2017/12/404-error-page-background-3.png) center/cover no-repeat;
+    margin: 0;
+    height: 100%;
+    color: white;
+}
+
+.error-page > h1 {
+    margin: .8em 3rem;
+    font: 4em Roboto;
+}
+
+.error-page > p {
+    display: inline-block;
+    margin: .2em 3rem;
+    font: 2em Roboto;
+}
+
+/* New doctor div */
+
+.new-doctor-div{
+    /* display: flex; */
+    /* justify-content: space-between; */
+    padding: 20px;
+    /* flex-wrap: wrap; */
+    margin: 10px;
+    background-color: #f3f3f3;
+    height: 100%;
+    border-radius: 7px;
+    border: 1px solid #f2f2f2;
+}
+
+/* Passworddiv */
+.update-password-div{
+    /* display: flex;
+    justify-content: center; */
+    padding: 10px 20px;
+    /* flex-wrap: wrap; */
+    width: 40%;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    background-color: #f3f3f3;
+    border-radius: 7px;
+    border: 1px solid #d3d3d3;
+}
+
+.update-password-inner-div{
+    width: 80%;
+    margin-top: 20px;
+}
+
+.mini-profile-card{
+    width: 40%;
+    padding: 10px 20px;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    background-color: #f3f3f3;
+    border-radius: 7px;
+    border: 1px solid #d3d3d3;
+    
+}

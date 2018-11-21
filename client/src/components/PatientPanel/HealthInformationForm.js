@@ -45,9 +45,18 @@ class SecondaryInformationForm extends Component {
         this.setState({renderRedirect : true});
     }
 
+    renderSkipMethod(){
+        const {user_profile} = this.props;
+        const uid = user_profile.uid;
+        
+        const value = false;
+
+        database.ref().child(`/USERS/PATIENTS/detail_patients_list/${uid}`).update(value);
+    }
+
     render(){
 
-        const {medications, common_health_information} = this.state;
+        const {medications} = this.state;
 
         return (
             <div>
@@ -123,6 +132,10 @@ class SecondaryInformationForm extends Component {
                                     onChange={e => this.setState({medications :{ ...medications, frequency: e.target.value}})}
                                 />
                             </div>
+                            
+                            <Button variant="outlined" className="patient-register-form-button" size="medium" color="danger" onClick={this.renderSkipMethod}>
+                                Skip this Information
+                            </Button>
                             
                             <Button variant="outlined" className="patient-register-form-button" size="medium" color="primary" type="submit">
                                 Submit

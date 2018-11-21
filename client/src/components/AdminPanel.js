@@ -12,6 +12,11 @@ class AdminPanel extends Component {
                         Manage Doctors
                     </Button>
                 </Link>
+                <Link to="/manage-patients">
+                    <Button className="menu-button" color="inherit">
+                        Manage Patients
+                    </Button>
+                </Link>
                 <Link to="/manage-inventory">
                     <Button className="menu-button" color="inherit">
                         Manage inventory

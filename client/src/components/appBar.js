@@ -16,7 +16,10 @@ const NavigateNonAuth = () => {
 
 const NavigateAuth = () => {
     return (
-        <Link to="/"><Button className="menu-button" color="inherit" onClick={() => auth.signOut()}>Sign out</Button></Link>
+        <div>
+            <Link to="/update-profile"><Button className="menu-button" color="inherit">Update Profile</Button></Link>
+            <Link to="/"><Button className="menu-button" color="inherit" onClick={() => auth.signOut()}>Sign out</Button></Link>
+        </div>
     )
 }
 

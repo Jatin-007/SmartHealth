@@ -19,7 +19,7 @@ class BookAppointment extends Component {
 
     render (){
         const {doctors} = this.state;
-
+        console.log(this.state);
         return (
             <div>
                 <div>

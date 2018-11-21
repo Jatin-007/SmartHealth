@@ -8,7 +8,7 @@ export function userAuth(values){
 }
 
 export function userTypeAction(user_data, uid){
-
+    
     let user_type = null;
     if(user_data[uid]){
         user_type = user_data[uid].type;
@@ -36,3 +36,30 @@ export function chooseSpeciality(val ){
         speciality_selected: val,
     }
 }
+
+// this is the list of all uids which are added whenever a new patient registers
+export function renderPatientList(val){
+    return {
+        type: "RENDER_PATIENT_LIST",
+        payload: val,
+    }
+}
+
+// this is the list which is shown in doctor panel for all the registered patients
+export function displayPatients(payload){
+    return {
+        type: "DISPLAY_PATIENTS",
+        payload,
+    }
+}
+
+export function detailUserProfile(val) {
+    return {
+        type: "DETAIL_USER_PROFILE",
+        payload: val
+    }
+}
+
+// export function detail_patient_details(val){
+//     // for showcasing patient
+// }
