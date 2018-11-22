@@ -59,7 +59,6 @@ class Home extends Component {
 
     getUserTypes = async () => {
         let user_uid_list = [];
-        console.log('isnide getUserType')
         await database.ref('/USERS/users_type').on('value', (snapshot) => {
             user_uid_list = Object.keys(snapshot.val());
             this.props.renderPatientList(user_uid_list);
@@ -67,7 +66,6 @@ class Home extends Component {
     }
 
     setUserType = async (uid) => {
-        console.log('isnide setUserType')
         await database.ref('/USERS/users_type').on('value',(snapshot) => {
             this.props.userTypeAction(snapshot.val(), uid);
         });    
@@ -80,7 +78,6 @@ class Home extends Component {
     render() {    
         const { user_profile, user_type, render_patient_list } = this.props;
         if(user_profile){
-            console.log('user profile exists', user_profile.uid);
             this.setUserType(user_profile.uid);
         }
 

@@ -11,6 +11,8 @@ const initialState = {
     selected_doctor_profile: "", 
     // for doctors
     patient_list_collections: [],
+    selected_patient_profile: "",
+    selected_patient_profile_uid: "",
     // detail profile
     detail_user_profile: "",
 }
@@ -49,7 +51,15 @@ export default function (state = initialState, action){
         case "DETAIL_USER_PROFILE":
             return extend({}, state, {
                 detail_user_profile: action.payload
-            })    
+            })
+            
+        /// handling patient profile clicked by the doctor
+
+        case "SELECTED_PATIENT_PROFILE":
+            return extend({}, state, {
+                selected_patient_profile: action.payload,
+                selected_patient_profile_uid: action.patient_uid,
+            })
 
         default:
             return state;    

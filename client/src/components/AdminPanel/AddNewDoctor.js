@@ -60,10 +60,12 @@ class AddNewDoctor extends Component {
         this.setState({province: val})
     }
 
-    onSubmit = () => {
+    onSubmit = (e) => {
+        e.preventDefault();
         console.log('triggered');
         const {user_profile, user_type} = this.props;
-        if(user_profile, user_type) {
+        
+        if(user_profile) {
             const uid = user_profile.uid;
             const {firstName,
                 lastName,
@@ -93,12 +95,7 @@ class AddNewDoctor extends Component {
                         city,
                         province,
                         country,
-                    }
-                }
-            }
-
-            const detail_doctor_study = {
-                [uid] : {
+                    },
                     work : {
                         uni_name,
                         field_of_study,
@@ -121,21 +118,19 @@ class AddNewDoctor extends Component {
                 }
             }
 
-            const name = {firstName} + " " + {lastName};
+            const name = `${firstName} + " " + ${lastName}`;
 
             const user_type_data = {
                 [uid]: {
                     name,
-                    type: user_type
+                    type: "DOCTOR"
                 }
             }
 
             database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_data);
-            database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_study);
-            console.log('test');
             database.ref(`/USERS/DOCTOR/specialization/${specialization}/`).update(specialization_data);
-
             database.ref(`/USERS/users_type/`).update(user_type_data);
+
         }
         
     }
@@ -296,7 +291,7 @@ class AddNewDoctor extends Component {
                             />
                         </div>
                     </div>
-                    <Button variant="contained" color="primary">Create new Doctor</Button>
+                    <Button type="submit" variant="contained" color="primary">Create new Doctor</Button>
                 </form>
             </div>
         )

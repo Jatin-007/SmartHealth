@@ -60,6 +60,10 @@ export function detailUserProfile(val) {
     }
 }
 
-// export function detail_patient_details(val){
-//     // for showcasing patient
-// }
+export function selectedPatientProfile (profile , uid) {
+    return {
+        type: "SELECTED_PATIENT_PROFILE",
+        payload: profile,
+        patient_uid: uid,
+    }
+}
