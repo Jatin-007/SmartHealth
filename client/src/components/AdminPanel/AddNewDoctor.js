@@ -118,7 +118,7 @@ class AddNewDoctor extends Component {
                 }
             }
 
-            const name = `${firstName} + " " + ${lastName}`;
+            const name = `${firstName} ${lastName}`;
 
             const user_type_data = {
                 [uid]: {
@@ -197,7 +197,7 @@ class AddNewDoctor extends Component {
                                 selected={this.state.dob}
                                 onChange={e => this.setState({dob: e.target.value})}
                                 fullWidth
-                                defaultValue="2017-05-24"
+                                // defaultValue="2017-05-24"
                                 type="date"
                                 margin="normal"
                             />
