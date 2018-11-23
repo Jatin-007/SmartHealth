@@ -31,7 +31,7 @@ class ManageInventory extends Component {
         }
     }
 
-    test(){
+    renderTable(){
         const {user_type} = this.props;
         if(user_type){
         if(user_type === "ADMIN"){
@@ -81,7 +81,7 @@ class ManageInventory extends Component {
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                {this.test()}
+                                {this.renderTable()}
                                 </TableBody>
                             </Table>
                         </Paper>
