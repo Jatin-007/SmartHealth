@@ -61,14 +61,16 @@
 /* ERROR PAGE */
 
 .error-page {
-    display: flex;
+    /* display: flex;
     background: #00AFF9 url(https://www.ezdia.com/wp-content/uploads/2017/12/404-error-page-background-3.png) center/cover no-repeat;
     margin: 0;
     height: 100%;
-    color: white;
+    color: white; */
+
+    margin: 10px auto;
 }
 
-.error-page > h1 {
+.error-page > h2 {
     margin: .8em 3rem;
     font: 4em Roboto;
 }
@@ -126,4 +128,11 @@
 .detail-patient-div:hover{
     cursor: pointer;
     background-color: #f3f3f3;
+}
+
+/* detail list */
+
+.display-table-list {
+    width: 80%;
+    margin: 10px auto;
 }

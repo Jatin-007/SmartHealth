@@ -17,6 +17,7 @@ class PasswordProfile extends Component {
     }
     
     reauthenticate(currentPassword){
+        console.log('triggers')
         const user = firebase.auth().currentUser;
         const cred = firebase.auth.EmailAuthProvider.credential(
             user.email, currentPassword);
@@ -24,8 +25,11 @@ class PasswordProfile extends Component {
     }
 
     changePassword(){
+
+        console.log('triggers')
+
         const currentPassword = this.state.oldPassword;
-        const newPassword = this.state.newPassword;
+        const newPassword = this.state.password1;
 
         this.reauthenticate(currentPassword).then(() => {
           const user = firebase.auth().currentUser;
@@ -35,7 +39,9 @@ class PasswordProfile extends Component {
         }).catch((error) => { console.log(error); });
     }
 
-    onSubmit(){
+    onSubmit(e){
+        e.preventDefault();
+        console.log('triggers')
         if(!this.state.error){
             this.changePassword();
         }
@@ -44,7 +50,7 @@ class PasswordProfile extends Component {
     renderPassword(){
 
         return (
-            <form onSubmit={this.onSubmit()}>
+            <form onSubmit={this.onSubmit.bind(this)}>
                 <div className="update-password-inner-div">
                     <div>
                         <TextField
@@ -75,7 +81,7 @@ class PasswordProfile extends Component {
 
                 {this.state.error}
 
-                <Button variant="contained" color="primary" disabled={this.state.password1 !== this.state.password2 || this.state.password1.length < 5}>
+                <Button variant="contained" type="submit" color="primary" disabled={this.state.password1 !== this.state.password2 || this.state.password1.length < 5}>
                     Update Password
                 </Button>
 

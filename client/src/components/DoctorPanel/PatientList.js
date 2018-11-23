@@ -97,7 +97,7 @@ class PatientList extends Component {
         return (
             <div>
             <h2>Patient List</h2>
-            <div>
+            <div className="display-table-list">
                 <Paper>
                     <Table>
                         <TableHead>

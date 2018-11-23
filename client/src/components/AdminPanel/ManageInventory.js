@@ -68,20 +68,24 @@ class ManageInventory extends Component {
 
             return (
                 <div>
-                    <Paper>
-                        <Table>
-                            <TableHead>
-                            <TableRow>
-                                <TableCell>Medicine name</TableCell>
-                                <TableCell numeric>Quantity</TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {this.test()}
-                            </TableBody>
-                        </Table>
-                    </Paper>
+                    <h2>Available Medication in clinic</h2>
+                    <hr/>
+                    <div className="display-table-list">
+                        <Paper>
+                            <Table>
+                                <TableHead>
+                                <TableRow>
+                                    <TableCell>Medicine name</TableCell>
+                                    <TableCell numeric>Quantity</TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {this.test()}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </div>
                 </div>
             )
     }

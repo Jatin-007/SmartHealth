@@ -6,6 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Select, MenuItem } from '@material-ui/core';
 
+import {auth} from '../../firebase';
+import dr_avatar from '../../assets/dr_avatar.png'
+
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 
 const maritalState = ["Single", "Married", "Divorced", "Widowed", "Seperated"];
@@ -33,6 +36,9 @@ class AddNewDoctor extends Component {
             years_of_exp: "",
             summary: "",
 
+            new_doctors_password: "iamanewdoctor",
+            new_doctor_uid: "",
+            new_doctor_auth: "",
         };
     }
 
@@ -62,11 +68,20 @@ class AddNewDoctor extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log('triggered');
-        const {user_profile, user_type} = this.props;
+        // const {user_profile, user_type} = this.props;
+
+        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.new_doctors_password).then(
+            authUser => {
+                console.log(authUser);
+                this.setState({new_doctor_uid: authUser.user.uid});
+                this.setState({new_doctor_auth: authUser})
+            }
+        )
+
+        console.log(this.state.new_doctor_uid);
         
-        if(user_profile) {
-            const uid = user_profile.uid;
+        if(this.state.new_doctor_auth) {
+            const uid = this.state.new_doctor_uid;
             const {firstName,
                 lastName,
                 email,
@@ -132,7 +147,7 @@ class AddNewDoctor extends Component {
             database.ref(`/USERS/users_type/`).update(user_type_data);
 
         }
-        
+
     }
 
     renderForm(){
@@ -298,6 +313,7 @@ class AddNewDoctor extends Component {
     }
 
     render(){
+
         return (
             <div>
                 <h2>Add a new Doctor here</h2>
