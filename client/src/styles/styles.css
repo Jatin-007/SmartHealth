@@ -1,5 +1,24 @@
+.register-div{
+    width: 40%;
+    margin: 20px auto;
+    text-align: center;
+    background-color: rgba(215, 230, 248, 0.733);
+    border: 2px solid rgb(2, 2, 173);
+    border-radius: 10px 10px;
+    vertical-align: middle;
+
+}
+
+.form-name-div > TextFeild{
+    padding: 10px;
+}
+
 .menu-button {
     float: right;
+}
+
+.register-button-style {
+    margin-top: 10px;
 }
 
 .avatar-header {

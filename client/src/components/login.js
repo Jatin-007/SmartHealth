@@ -54,7 +54,7 @@ class Login_Page extends Component {
         } = this.state;
 
         return (
-            <div>
+            <div className="register-div">
                 <form onSubmit={this.onSubmit}>
                     <div>
                         <TextField

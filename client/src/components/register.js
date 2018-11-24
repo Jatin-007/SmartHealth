@@ -61,9 +61,9 @@ class Register extends Component {
         firstName === '' || lastName === '' 
 
         return (
-            <div>
+            <div className="register-div">
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <div>
+                    <div className="form-name-div">
                     <TextField
                         label="firstname"
                         value={firstName}
@@ -108,9 +108,11 @@ class Register extends Component {
                     />
                     </div>
                     {error && <p>{error}</p>}
-                    <Button variant="contained" color="primary" disabled={isInvalid} type="submit">
+
+                    <Button variant="contained" className="register-button-style" color="primary" disabled={isInvalid} type="submit">
                         Register
                     </Button>
+
                 </form> 
 
                 <GoogleAuthSignIn/>
