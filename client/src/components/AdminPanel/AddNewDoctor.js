@@ -8,6 +8,7 @@ import { Select, MenuItem } from '@material-ui/core';
 
 import {auth} from '../../firebase';
 import dr_avatar from '../../assets/dr_avatar.png'
+// import * as admin from '../../firebase/adminConfig';
 
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 
@@ -145,8 +146,23 @@ class AddNewDoctor extends Component {
             database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_data);
             database.ref(`/USERS/DOCTOR/specialization/${specialization}/`).update(specialization_data);
             database.ref(`/USERS/users_type/`).update(user_type_data);
-
         }
+
+        // admin.auth().createuser({
+        //     email: "user@example.com",
+        //     emailVerified: false,
+        //     phoneNumber: "+11234567890",
+        //     password: "secretPassword",
+        //     displayName: "John Doe",
+        //     photoURL: "http://www.example.com/12345678/photo.png",
+        //     disabled: false
+        // }).then(function(userRecord) {
+        //     // See the UserRecord reference doc for the contents of userRecord.
+        //     console.log("Successfully created new user:", userRecord.uid);
+        //   })
+        //   .catch(function(error) {
+        //     console.log("Error creating new user:", error);
+        //   });
 
     }
 
@@ -313,6 +329,11 @@ class AddNewDoctor extends Component {
     }
 
     render(){
+        const user_type = this.props.user_type;
+
+        if(user_type !== "ADMIN"){
+            <Redirect to="/home"/>
+        }
 
         return (
             <div>

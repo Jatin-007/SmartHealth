@@ -2,6 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
 class DetailPatientProfile extends Component {
 
     componentDidMount(){
@@ -10,12 +17,49 @@ class DetailPatientProfile extends Component {
         }
     }
 
+    renderCard(){
+
+    }
+
+    renderInformation(){
+        const {selected_patient_profile} = this.props;
+        const {personal_information, emergency_contact, insurance_information, medications, common_health_information} = selected_patient_profile;
+
+        return (
+            <Paper>
+            <Table>
+                <TableHead>
+                <TableRow>
+                    Personal Information
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell component="th" scope="row">
+                        Test
+                        </TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+            </Paper>
+        )
+
+    }
+
     render (){
         const {selected_patient_profile, selected_patient_profile_uid} = this.props;
 
+        if(!selected_patient_profile){
+            return <Redirect to="/home"/>
+        }
+
         return (
-            <div>
-                TEST
+            <div> 
+                {this.renderInformation()}
             </div>
         )
     }

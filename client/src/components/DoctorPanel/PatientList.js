@@ -27,6 +27,10 @@ class PatientList extends Component {
         })
     }
 
+    componentWillUnmount(){
+        
+    }
+
     // need to take care of the state 
 
     // filterList(e) {
@@ -77,7 +81,7 @@ class PatientList extends Component {
                     return (
                     <TableRow key={index} onClick={() => this.handleClick(val)} className="detail-patient-div">
                          <TableCell>
-                         {index}
+                         {index + 1}
                          </TableCell>
                          <TableCell>{nested_obj["gender"]}</TableCell>
                          <TableCell>{nested_obj["name"]}</TableCell>

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
+import {AppBar, Toolbar, Typography, Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import MenuIcon from '@material-ui/icons/Menu';
 import {auth} from '../firebase/config';
 import {connect} from 'react-redux';
 
@@ -36,15 +35,12 @@ class ButtonAppBar extends Component {
             <AppBar position="static">
                 
                 <Toolbar>
-                    <IconButton color="inherit" aria-label="Menu">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="title" color="inherit">
+                    <Typography variant="title" color="inherit" className="title-appbar">
                     {
                         this.props.user_profile ? 
                         <Link to="/home">Smart Health</Link> : 
                         <Link to="/">Smart Health</Link>
-                        }
+                    }
                     </Typography>
                     {this.authentication()}
                 </Toolbar>
