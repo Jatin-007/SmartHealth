@@ -11,7 +11,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import AddIcon from '@material-ui/icons/Add';
+import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import TextField from '@material-ui/core/TextField';
 
 class ManageDoctors extends Component {
     constructor(props){
@@ -19,6 +20,8 @@ class ManageDoctors extends Component {
 
         this.state = {
             doctors_list: [],
+            data: "",
+            filtered_data: "",
         }
     }
 
@@ -29,6 +32,9 @@ class ManageDoctors extends Component {
             if(user_type === "ADMIN"){
                 await database.ref('/USERS/DOCTOR/detail_user_data').on('value', (snapshot) => {
                     this.setState({doctors_list: snapshot.val()});
+
+                    this.setState({data: snapshot.val()});
+                    this.setState({filtered_data: snapshot.val()});                    
                 })
             }
             else if(user_type === "PATIENT" || "DOCTOR"){
@@ -39,9 +45,11 @@ class ManageDoctors extends Component {
 
     renderTable(){
         const {user_type} = this.props;
-        if(user_type){
-            if(user_type === "ADMIN"){
-                const doctors_list = this.state.doctors_list;
+        // if(user_type){
+            console.log('filtered_dataaa', this.state.filtered_data);
+            // if(user_type === "ADMIN"){
+                const doctors_list = this.state.filtered_data;
+
                 console.log(doctors_list);
 
                 return Object.keys(doctors_list).map((data, index)=> {
@@ -49,6 +57,8 @@ class ManageDoctors extends Component {
                     const nested_obj = doctors_list[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
+
+                    console.log(doctors_list[data]);
 
                     const city = personal_information.city;
                     const dob = personal_information.dob;
@@ -73,21 +83,75 @@ class ManageDoctors extends Component {
                             <TableCell>{specialization}</TableCell>
                             <TableCell>
                             <Button variant="fab" mini color="secondary" aria-label="Add">
-                            <AddIcon />
+                                <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
                         </TableRow>
                     )
                 })    
+            // }
+        // }
+    }
+
+    filterList(e){
+        const doctors_list = this.state.data;
+        console.log(doctors_list);
+        const query = e.target.value.toLowerCase();
+
+        let filtered_data = Object.keys(doctors_list).filter(data => {
+            const nested_obj = doctors_list[data];
+            const personal_information = nested_obj.personal_information;
+            const work = nested_obj.work;
+            const specialization = work.specialization;
+
+            console.log(personal_information, work, specialization);
+
+            if(personal_information.first_name.toLowerCase().search(query) !== -1){
+                return data;
             }
-        }
+            else if(personal_information.email.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(specialization.toLowerCase().search(query) !== -1){
+                return data;
+            }
+        });
+
+        this.setState({filtered_data});
+        console.log(this.state.filtered_data);
     }
 
     render() {
+
+        const renderForm = () => {
+            return (
+                <div>
+                    <form>
+                        <TextField
+                            id="outlined-full-width"
+                            label="Search"
+                            style={{ margin: 8 }}
+                            placeholder="Search for doctor by their name or city"
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={e => this.filterList(e)}
+                        />
+                    </form>
+                </div>
+            )
+        }
+        
         return (
             <div>
                 <h3>Manage Doctors</h3>
                 <hr/>
+
+                {/* {renderForm()} */}
+
                 <div>
                     <Link to="/add-doctors">
                         <Button variant="contained" color="default">
@@ -135,11 +199,5 @@ const MapStateToProps = state => {
         user_type
     }
 }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-        
-//     }
-// }
 
 export default connect(MapStateToProps)(ManageDoctors);

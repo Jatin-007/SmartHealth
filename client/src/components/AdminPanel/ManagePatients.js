@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 
 class ManagePatients extends Component {
     constructor(props){
@@ -65,7 +65,7 @@ class ManagePatients extends Component {
                             <TableCell>{city}</TableCell>
                             <TableCell>
                             <Button variant="fab" mini color="secondary" aria-label="Add">
-                            <AddIcon />
+                            <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
                         </TableRow>
