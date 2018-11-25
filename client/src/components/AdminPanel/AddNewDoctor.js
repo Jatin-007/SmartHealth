@@ -78,8 +78,6 @@ class AddNewDoctor extends Component {
                 this.setState({new_doctor_auth: authUser})
             }
         )
-
-        console.log(this.state.new_doctor_uid);
         
         if(this.state.new_doctor_auth) {
             const uid = this.state.new_doctor_uid;
@@ -124,7 +122,11 @@ class AddNewDoctor extends Component {
             }
 
             const specialization_data = {
-                [firstName]: {
+                [uid]: {
+                    firstName,
+                    lastName,
+                    email,
+                    city,
                     uni_name,
                     field_of_study,
                     year_of_study,

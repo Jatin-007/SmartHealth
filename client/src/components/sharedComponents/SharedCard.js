@@ -7,32 +7,39 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import doctor_image from '../../assets/doctor-image.jpg';
-import DoctorsList from '../PatientPanel/DoctorsList';
 
 import {connect} from 'react-redux';
 import {chooseSpeciality} from '../../actions/authActions';
 
 class SharedCard extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            renderRedirect: false,
+        }
+    }
 
     handleClick(val){
         this.props.chooseSpeciality(val);
-        return <div>
-                TEST
-            </div>
+        this.setState({renderRedirect: true});
     }
  
     render(){
         const {profile} = this.props; 
+
+        if(this.state.renderRedirect === true) {
+            return <Redirect to="/choose-doctors"/>
+        }
 
         const renderProfile =() => {
             return Object.keys(profile).map(val => {
                 return (
                     <Card className="doctor-card-div" key={val}>
                         <CardActionArea>
-                            <CardMedia className="doc-image">
-                                <img src = {doctor_image} alt="test"/>
-                            </CardMedia>
+                            <CardMedia className="doc-image"
+                               image = {require("../../assets/doctor-image.jpg")}
+                               style={{height: 100, paddingTop: '56.25%'}}
+                            />
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {val.toUpperCase()}
