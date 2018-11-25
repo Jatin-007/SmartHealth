@@ -23,7 +23,7 @@ export function userTypeAction(user_data, uid){
     }
 }
 
-export function chooseSpeciality(val ){
+export function chooseSpeciality(val){
     let data = {};
     database.ref(`USERS/DOCTOR/specialization/${val}`).on('value', (snapshot) => {
         data = snapshot.val();
@@ -60,6 +60,19 @@ export function detailUserProfile(val) {
     }
 }
 
-// export function detail_patient_details(val){
-//     // for showcasing patient
-// }
+export function selectedPatientProfile (profile , uid) {
+    return {
+        type: "SELECTED_PATIENT_PROFILE",
+        payload: profile,
+        patient_uid: uid,
+    }
+}
+
+export function selectedDoctorProfile (uid, detail_profile) {
+
+    return {
+        type: "SELECTED_DOCTOR_PROFILE",
+        uid,
+        detail_profile
+    }
+}

@@ -8,11 +8,15 @@ const initialState = {
     speciality_selected: "", 
     list_of_doctors: "",
     // showcasing the profile of the selected doctor by a patient
+    selected_doctor_uid: "",
     selected_doctor_profile: "", 
     // for doctors
     patient_list_collections: [],
+    selected_patient_profile: "",
+    selected_patient_profile_uid: "",
     // detail profile
     detail_user_profile: "",
+
 }
 
 export default function (state = initialState, action){
@@ -49,6 +53,21 @@ export default function (state = initialState, action){
         case "DETAIL_USER_PROFILE":
             return extend({}, state, {
                 detail_user_profile: action.payload
+            })
+            
+        /// handling patient profile clicked by the doctor
+
+        case "SELECTED_PATIENT_PROFILE":
+            return extend({}, state, {
+                selected_patient_profile: action.payload,
+                selected_patient_profile_uid: action.patient_uid,
+            })
+
+        case "SELECTED_DOCTOR_PROFILE":
+         
+            return extend ({}, state, {
+                selected_doctor_uid: action.uid,
+                selected_doctor_profile: action.detail_profile, 
             })    
 
         default:

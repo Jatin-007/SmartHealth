@@ -1,5 +1,24 @@
+.register-div{
+    width: 40%;
+    margin: 20px auto;
+    text-align: center;
+    background-color: rgba(215, 230, 248, 0.733);
+    border: 2px solid rgb(2, 2, 173);
+    border-radius: 10px 10px;
+    vertical-align: middle;
+
+}
+
+.form-name-div > TextFeild{
+    padding: 10px;
+}
+
 .menu-button {
     float: right;
+}
+
+.register-button-style {
+    margin-top: 10px;
 }
 
 .avatar-header {
@@ -12,6 +31,10 @@
 
 .profile-avatar{
     border: 1px solid black;
+}
+
+.title-appbar{
+    text-decoration: none;
 }
 
 .patient-register-form {
@@ -61,14 +84,16 @@
 /* ERROR PAGE */
 
 .error-page {
-    display: flex;
+    /* display: flex;
     background: #00AFF9 url(https://www.ezdia.com/wp-content/uploads/2017/12/404-error-page-background-3.png) center/cover no-repeat;
     margin: 0;
     height: 100%;
-    color: white;
+    color: white; */
+
+    margin: 10px auto;
 }
 
-.error-page > h1 {
+.error-page > h2 {
     margin: .8em 3rem;
     font: 4em Roboto;
 }
@@ -121,4 +146,16 @@
     border-radius: 7px;
     border: 1px solid #d3d3d3;
     
+}
+
+.detail-patient-div:hover{
+    cursor: pointer;
+    background-color: #f3f3f3;
+}
+
+/* detail list */
+
+.display-table-list {
+    width: 80%;
+    margin: 10px auto;
 }

@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {database} from '../firebase/config';
 import {connect} from 'react-redux';
 import getAge from 'get-age';
+import {auth} from '../firebase';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -81,6 +82,11 @@ class PatientRegister extends Component {
         database.ref().child('/USERS/PATIENTS/detail_patients_list').update(personal_information);
         database.ref().child('/USERS/PATIENTS/patients_list').update(patients_list_data);
         this.setState({renderRedirect: true});
+
+        const name = `${this.state.first_name} ${this.state.last_name}`;
+        auth.updateUserProfile(name).then(() => {
+            console.log('completed succesfully');
+        })
     }
 
     displayForm(){

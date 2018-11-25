@@ -6,6 +6,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Select, MenuItem } from '@material-ui/core';
 
+import {auth} from '../../firebase';
+import dr_avatar from '../../assets/dr_avatar.png'
+// import * as admin from '../../firebase/adminConfig';
+
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 
 const maritalState = ["Single", "Married", "Divorced", "Widowed", "Seperated"];
@@ -33,6 +37,9 @@ class AddNewDoctor extends Component {
             years_of_exp: "",
             summary: "",
 
+            new_doctors_password: "iamanewdoctor",
+            new_doctor_uid: "",
+            new_doctor_auth: "",
         };
     }
 
@@ -60,11 +67,20 @@ class AddNewDoctor extends Component {
         this.setState({province: val})
     }
 
-    onSubmit = () => {
-        console.log('triggered');
-        const {user_profile, user_type} = this.props;
-        if(user_profile, user_type) {
-            const uid = user_profile.uid;
+    onSubmit = (e) => {
+        e.preventDefault();
+        // const {user_profile, user_type} = this.props;
+
+        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.new_doctors_password).then(
+            authUser => {
+                console.log(authUser);
+                this.setState({new_doctor_uid: authUser.user.uid});
+                this.setState({new_doctor_auth: authUser})
+            }
+        )
+        
+        if(this.state.new_doctor_auth) {
+            const uid = this.state.new_doctor_uid;
             const {firstName,
                 lastName,
                 email,
@@ -93,12 +109,7 @@ class AddNewDoctor extends Component {
                         city,
                         province,
                         country,
-                    }
-                }
-            }
-
-            const detail_doctor_study = {
-                [uid] : {
+                    },
                     work : {
                         uni_name,
                         field_of_study,
@@ -111,7 +122,11 @@ class AddNewDoctor extends Component {
             }
 
             const specialization_data = {
-                [firstName]: {
+                [uid]: {
+                    firstName,
+                    lastName,
+                    email,
+                    city,
                     uni_name,
                     field_of_study,
                     year_of_study,
@@ -121,23 +136,36 @@ class AddNewDoctor extends Component {
                 }
             }
 
-            const name = {firstName} + " " + {lastName};
+            const name = `${firstName} ${lastName}`;
 
             const user_type_data = {
                 [uid]: {
                     name,
-                    type: user_type
+                    type: "DOCTOR"
                 }
             }
 
             database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_data);
-            database.ref('/USERS/DOCTOR/detail_user_data/').update(detail_doctor_study);
-            console.log('test');
             database.ref(`/USERS/DOCTOR/specialization/${specialization}/`).update(specialization_data);
-
             database.ref(`/USERS/users_type/`).update(user_type_data);
         }
-        
+
+        // admin.auth().createuser({
+        //     email: "user@example.com",
+        //     emailVerified: false,
+        //     phoneNumber: "+11234567890",
+        //     password: "secretPassword",
+        //     displayName: "John Doe",
+        //     photoURL: "http://www.example.com/12345678/photo.png",
+        //     disabled: false
+        // }).then(function(userRecord) {
+        //     // See the UserRecord reference doc for the contents of userRecord.
+        //     console.log("Successfully created new user:", userRecord.uid);
+        //   })
+        //   .catch(function(error) {
+        //     console.log("Error creating new user:", error);
+        //   });
+
     }
 
     renderForm(){
@@ -202,7 +230,7 @@ class AddNewDoctor extends Component {
                                 selected={this.state.dob}
                                 onChange={e => this.setState({dob: e.target.value})}
                                 fullWidth
-                                defaultValue="2017-05-24"
+                                // defaultValue="2017-05-24"
                                 type="date"
                                 margin="normal"
                             />
@@ -296,13 +324,19 @@ class AddNewDoctor extends Component {
                             />
                         </div>
                     </div>
-                    <Button variant="contained" color="primary">Create new Doctor</Button>
+                    <Button type="submit" variant="contained" color="primary">Create new Doctor</Button>
                 </form>
             </div>
         )
     }
 
     render(){
+        const user_type = this.props.user_type;
+
+        if(user_type !== "ADMIN"){
+            <Redirect to="/home"/>
+        }
+
         return (
             <div>
                 <h2>Add a new Doctor here</h2>
