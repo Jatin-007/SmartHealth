@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import DoctorProfile from './DoctorPanel/DoctorProfile';
 import Button from '@material-ui/core/Button';
 
 class PatientPanel extends Component {
@@ -15,13 +14,12 @@ class PatientPanel extends Component {
             <div>
                 {
                     isRegistered &&
-                    <div>
-                            <Link to="book-appointment">
-                                <Button variant="outlined" color="primary" >
-                                    Book Appointment
-                                </Button>
-                            </Link>
-                        <DoctorProfile/>
+                    <div className="patient-registered-div">
+                        <Link to="book-appointment">
+                            <Button variant="outlined" color="primary" >
+                                Book Appointment
+                            </Button>
+                        </Link>
                     </div>
                 }
             </div>

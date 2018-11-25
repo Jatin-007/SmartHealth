@@ -10,6 +10,7 @@ const initialState = {
     // showcasing the profile of the selected doctor by a patient
     selected_doctor_uid: "",
     selected_doctor_profile: "", 
+    selected_doctor_booked_slots: "",
     // for doctors
     patient_list_collections: [],
     selected_patient_profile: "",
@@ -68,6 +69,11 @@ export default function (state = initialState, action){
             return extend ({}, state, {
                 selected_doctor_uid: action.uid,
                 selected_doctor_profile: action.detail_profile, 
+            })
+
+        case "DOCTOR_BOOKED_SLOTS":
+            return extend({}, state, {
+                selected_doctor_booked_slots: action.booked_slots,
             })    
 
         default:

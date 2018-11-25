@@ -76,3 +76,12 @@ export function selectedDoctorProfile (uid, detail_profile) {
         detail_profile
     }
 }
+
+export function doctorBookedSlots (booked_slots) {
+    // holds all booked slots which needs to be disabled during book appointment
+
+    return {
+        type: "DOCTOR_BOOKED_SLOTS",
+        booked_slots
+    }
+}
