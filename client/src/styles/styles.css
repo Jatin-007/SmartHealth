@@ -17,6 +17,10 @@
     float: right;
 }
 
+.patient-registered-div {
+    margin: 20px auto;
+}
+
 .register-button-style {
     margin-top: 10px;
 }

@@ -21,6 +21,7 @@ class DetailDoctorProfile extends Component {
             reason: "",
             followups: "",
             startDate: new Date(),
+            page: 1,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -46,6 +47,10 @@ class DetailDoctorProfile extends Component {
         }
     }
 
+    renderForm(){
+        this.setState({page: 2});
+    }
+
     handleChange(date){
         this.setState({startDate: date});
     }
@@ -57,7 +62,7 @@ class DetailDoctorProfile extends Component {
                 <p>to book an appointment, please fill out some information below</p>
 
                 <div className="doctor-appointment-form">
-                    <form>
+                    <form onSubmit={this.renderForm()}>
                         <div>
                             <TextField
                                 id="standard-multiline-static"
@@ -95,12 +100,29 @@ class DetailDoctorProfile extends Component {
                             />
                         </div>
 
-                            <Button variant="contained" color="primary">
+                            <Button variant="contained" type="submit" color="primary">
                                 Next
                             </Button>
                     </form>
                 </div>
 
+            </div>
+        )
+    }
+
+    renderPayment() {
+        return (
+            <div>
+                <h2>Following are some charges for your appointment</h2>
+                <hr/>
+                <div>
+                    <h4>Appointment Fee: </h4>
+                    <h5>$50 CAD</h5>
+                </div>
+
+                <div>
+                    <h3>Select Payment Method</h3>
+                </div>
             </div>
         )
     }
@@ -119,7 +141,14 @@ class DetailDoctorProfile extends Component {
         else {
             return (
                 <div>
-                    {this.renderInitialForm()}
+                    {
+                        this.state.page === 1 &&
+                        this.renderInitialForm()
+                    }
+                    {
+                        this.state.page === 2 &&
+                        this.renderPayment()
+                    }
                     {this.renderDoctorProfile()}
                 </div>
             )
