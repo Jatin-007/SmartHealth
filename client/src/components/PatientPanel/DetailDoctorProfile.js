@@ -1,20 +1,39 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { map } from '@firebase/util';
+import {Redirect} from 'react-router-dom';
+import DoctorProfileCard from './DoctorProfileCard';
 
 class DetailDoctorProfile extends Component {
+
+    renderDoctorProfile(){
+        const {selected_doctor_profile} = this.props;
+
+        const personal_information = selected_doctor_profile.personal_information;
+        const work = selected_doctor_profile.work;
+
+        console.log(personal_information);
+        console.log(work);
+
+        return <DoctorProfileCard user={selected_doctor_profile}/>
+    }
+
     render (){
         const {
-            selected_doctor_uid,
-            selected_doctor_profile,} = this.props;
-        
-        console.log(selected_doctor_profile, selected_doctor_uid);
+            selected_doctor_uid
+        } = this.props; 
 
-        return (
-            <div>
-                test for detail doctor
-            </div>
-        )
+        if(!selected_doctor_uid) {
+            return <Redirect to= "/book-appointment"/ >
+        }
+
+        else {
+            return (
+                <div>
+                    {selected_doctor_uid}
+                    {this.renderDoctorProfile()}
+                </div>
+            )
+        }
     }
 }
 
