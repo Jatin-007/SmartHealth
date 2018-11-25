@@ -10,7 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {selectedDoctorProfile} from '../../actions/authActions';
+import {selectedDoctorProfile, doctorBookedSlots} from '../../actions/authActions';
 
 class DoctorsList extends Component {
 
@@ -28,7 +28,11 @@ class DoctorsList extends Component {
             const detail_profile = snapshot.val();
             this.props.selectedDoctorProfile(uid, detail_profile);
             this.setState({renderRedirect: true});
+        })
 
+        await database.ref(`USERS/DOCTOR/availability/${uid}`).on('value', (snapshot) => {
+            const booked_slots = snapshot.val();
+            this.props.doctorBookedSlots(booked_slots);
         })
     }
 
@@ -126,6 +130,9 @@ const mapDispatchToProps = dispatch => {
         selectedDoctorProfile: (uid, detail_profile) => {
             dispatch(selectedDoctorProfile(uid, detail_profile));
         },
+        doctorBookedSlots: (booked_slots) => {
+            dispatch(doctorBookedSlots(booked_slots));
+        }
     }
 }
 

@@ -55,7 +55,6 @@ import dr_avatar from '../../assets/dr_avatar.png'
   class DoctorProfileCard extends Component {
     render() {
         const {user} = this.props;
-        console.log(user);
       return (
         <div id="user-profile">
           <MainPanel info={user} />
