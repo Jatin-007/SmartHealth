@@ -21,7 +21,6 @@ class DetailDoctorProfile extends Component {
             reason: "",
             followups: "",
             startDate: new Date(),
-            page: 1,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,10 +44,16 @@ class DetailDoctorProfile extends Component {
                 console.log(objvals);
             })
         }
+
+        return (
+            <div>
+                TEST FROM RENDERSLOTS();
+            </div>
+        )
     }
 
     renderForm(){
-        this.setState({page: 2});
+        console.log('yes');
     }
 
     handleChange(date){
@@ -132,8 +137,7 @@ class DetailDoctorProfile extends Component {
             selected_doctor_uid,
         } = this.props; 
 
-        {this.renderSlots()}
-
+        
         if(!selected_doctor_uid) {
             return <Redirect to= "/book-appointment"/ >
         }   
@@ -141,14 +145,8 @@ class DetailDoctorProfile extends Component {
         else {
             return (
                 <div>
-                    {
-                        this.state.page === 1 &&
-                        this.renderInitialForm()
-                    }
-                    {
-                        this.state.page === 2 &&
-                        this.renderPayment()
-                    }
+                {this.renderSlots()}
+                    {this.renderInitialForm()}
                     {this.renderDoctorProfile()}
                 </div>
             )

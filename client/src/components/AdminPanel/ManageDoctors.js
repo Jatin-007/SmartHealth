@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
 
 class ManageDoctors extends Component {
     constructor(props){
@@ -22,6 +23,8 @@ class ManageDoctors extends Component {
             doctors_list: [],
             data: "",
             filtered_data: "",
+            open: false,
+            selected_doctor_uid: ""
         }
     }
 
@@ -43,22 +46,21 @@ class ManageDoctors extends Component {
         }
     }
 
+    handleClose(){
+        this.setState({open: false})
+    }
+
     renderTable(){
-        const {user_type} = this.props;
         // if(user_type){
-            console.log('filtered_dataaa', this.state.filtered_data);
             // if(user_type === "ADMIN"){
                 const doctors_list = this.state.filtered_data;
 
-                console.log(doctors_list);
-
                 return Object.keys(doctors_list).map((data, index)=> {
+                    const uid = data;
 
                     const nested_obj = doctors_list[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
-
-                    console.log(doctors_list[data]);
 
                     const city = personal_information.city;
                     const dob = personal_information.dob;
@@ -82,7 +84,8 @@ class ManageDoctors extends Component {
                             <TableCell>{city}</TableCell>
                             <TableCell>{specialization}</TableCell>
                             <TableCell>
-                            <Button variant="fab" mini color="secondary" aria-label="Add">
+                            <Button variant="fab" className="update-button-admin" mini color="secondary" aria-label="Add" 
+                                onClick={() => this.setState({selected_doctor_uid: uid, open: true})}>
                                 <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
@@ -93,9 +96,17 @@ class ManageDoctors extends Component {
         // }
     }
 
+    deleteDoctor(){
+        console.log(this.state.selected_doctor_uid);
+        database.ref('/USERS/DOCTOR/detail_user_data').child(`${this.state.selected_doctor_uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        })
+    }
+
     filterList(e){
         const doctors_list = this.state.data;
-        console.log(doctors_list);
         const query = e.target.value.toLowerCase();
 
         let filtered_data = Object.keys(doctors_list).filter(data => {
@@ -103,8 +114,6 @@ class ManageDoctors extends Component {
             const personal_information = nested_obj.personal_information;
             const work = nested_obj.work;
             const specialization = work.specialization;
-
-            console.log(personal_information, work, specialization);
 
             if(personal_information.first_name.toLowerCase().search(query) !== -1){
                 return data;
@@ -118,7 +127,6 @@ class ManageDoctors extends Component {
         });
 
         this.setState({filtered_data});
-        console.log(this.state.filtered_data);
     }
 
     render() {
@@ -149,18 +157,38 @@ class ManageDoctors extends Component {
             <div>
                 <h3>Manage Doctors</h3>
                 <hr/>
-
-                {/* {renderForm()} */}
-
                 <div>
                     <Link to="/add-doctors">
-                        <Button variant="contained" color="default">
-                            Add a Doctor
+                        <Button variant="contained" color="primary">
+                            Add a Doctor   
                             <CloudUploadIcon/>
                         </Button>
                     </Link>
                     <hr/>
                 </div>
+
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={() => this.handleClose()}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                        Delete Doctor
+                        </h2>
+                        <h3>
+                        You are about to delete a doctor completely from your system. To Proceed further, Click Yes.
+                        </h3>
+                        <p>
+                        Or simply tap outside the popup to cancel the action.
+                        </p>
+
+                         <Button variant="contained" color="secondary" onClick={this.deleteDoctor.bind(this)}>
+                            Yes, Delete the user!
+                        </Button>
+                    </div>
+                </Modal>
 
                 <div className="display-table-list">
                     <Paper>
@@ -174,6 +202,7 @@ class ManageDoctors extends Component {
                                 <TableCell>Date of Birth</TableCell>
                                 <TableCell>City</TableCell>
                                 <TableCell>Specialization</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>

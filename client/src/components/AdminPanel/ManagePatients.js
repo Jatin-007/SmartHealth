@@ -11,6 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
 
 class ManagePatients extends Component {
     constructor(props){
@@ -18,6 +20,8 @@ class ManagePatients extends Component {
 
         this.state = {
             manage_patients: [],
+            open: false,
+            uid: "",
         }
     }
 
@@ -36,15 +40,34 @@ class ManagePatients extends Component {
         }
     }
 
+    handleDeleteUser(uid){
+        this.setState({open: true, uid});
+    }
+
+    manageDelete = () => {
+
+        database.ref('/USERS/PATIENTS/detail_patients_list').child(`${this.state.uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        })
+
+        database.ref('/USERS/PATIENTS/patients_list').child(`${this.state.uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        })
+    }
+
     renderTable(){
         const {user_type} = this.props;
         if(user_type){
             if(user_type === "ADMIN"){
                 const patient_list = this.state.manage_patients;
-                console.log(patient_list);
 
                 return Object.keys(patient_list).map((data, index)=> {
 
+                    const uid = data;
                     const nested_obj = patient_list[data];
                     const personal_information = nested_obj.personal_information;
                     const title = personal_information.title;
@@ -64,7 +87,11 @@ class ManagePatients extends Component {
                             <TableCell>{dob}</TableCell>
                             <TableCell>{city}</TableCell>
                             <TableCell>
-                            <Button variant="fab" mini color="secondary" aria-label="Add">
+                                <Button variant="fab" mini 
+                                className="update-button-admin" 
+                                color="secondary" 
+                                aria-label="Add" 
+                                onClick={() => this.handleDeleteUser(uid)}>
                             <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
@@ -74,12 +101,39 @@ class ManagePatients extends Component {
             }
         }
     }
+
+    handleClose = () => {
+        this.setState({open: false});
+    }
+
     render(){
 
         return (
             <div>
                 <h2>Manage patients</h2>
                 <hr/>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                        Delete User
+                        </h2>
+                        <h3>
+                        You are about to delete a user completely from your system. To Proceed further, Click Yes.
+                        </h3>
+                        <p>
+                        Or simply tap outside the popup to cancel the action.
+                        </p>
+
+                         <Button variant="contained" color="secondary" onClick={this.manageDelete.bind(this)}>
+                            Yes, Delete the user!
+                        </Button>
+                    </div>
+                </Modal>
                 <div className="display-table-list">
                         <Paper>
                             <Table>
