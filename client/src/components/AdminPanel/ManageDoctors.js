@@ -23,7 +23,6 @@ class ManageDoctors extends Component {
             doctors_list: [],
             data: "",
             filtered_data: "",
-            open: false,
             selected_doctor_uid: ""
         }
     }
@@ -44,10 +43,6 @@ class ManageDoctors extends Component {
                 return <Redirect to="/404" />
             }
         }
-    }
-
-    handleClose(){
-        this.setState({open: false})
     }
 
     renderTable(){
@@ -83,26 +78,11 @@ class ManageDoctors extends Component {
                             <TableCell>{dob}</TableCell>
                             <TableCell>{city}</TableCell>
                             <TableCell>{specialization}</TableCell>
-                            <TableCell>
-                            <Button variant="fab" className="update-button-admin" mini color="secondary" aria-label="Add" 
-                                onClick={() => this.setState({selected_doctor_uid: uid, open: true})}>
-                                <DeleteSharpIcon  />
-                            </Button>
-                            </TableCell>
                         </TableRow>
                     )
                 })    
             // }
         // }
-    }
-
-    deleteDoctor(){
-        console.log(this.state.selected_doctor_uid);
-        database.ref('/USERS/DOCTOR/detail_user_data').child(`${this.state.selected_doctor_uid}`).remove().then(() => {
-            this.setState({
-                open: false
-            })
-        })
     }
 
     filterList(e){
@@ -167,29 +147,6 @@ class ManageDoctors extends Component {
                     <hr/>
                 </div>
 
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.open}
-                    onClose={() => this.handleClose()}
-                    >
-                    <div className="modal-div">
-                        <h2>
-                        Delete Doctor
-                        </h2>
-                        <h3>
-                        You are about to delete a doctor completely from your system. To Proceed further, Click Yes.
-                        </h3>
-                        <p>
-                        Or simply tap outside the popup to cancel the action.
-                        </p>
-
-                         <Button variant="contained" color="secondary" onClick={this.deleteDoctor.bind(this)}>
-                            Yes, Delete the user!
-                        </Button>
-                    </div>
-                </Modal>
-
                 <div className="display-table-list">
                     <Paper>
                         <Table>
@@ -202,7 +159,6 @@ class ManageDoctors extends Component {
                                 <TableCell>Date of Birth</TableCell>
                                 <TableCell>City</TableCell>
                                 <TableCell>Specialization</TableCell>
-                                <TableCell></TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>

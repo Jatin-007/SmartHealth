@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import PatientProfileCard from './PatientProfileCard';
 import {database} from '../../firebase/config';
 
@@ -56,10 +56,10 @@ class DetailPatientProfile extends Component {
 
         const common_health_information = {
             common_health_information: {
-                height: this.state.height ||  "",
-                weight : this.state.weight ||  "",
-                blood_group: this.state.blood_group ||  "",
-                allergies: this.state.allergies || "",
+                height: this.state.height ? this.state.height : "",
+                weight : this.state.weight ? this.state.weight : "",
+                blood_group: this.state.blood_group ? this.state.blood_group : "",
+                allergies: this.state.allergies ? this.state.allergies : "",
             }
         }
 
@@ -171,6 +171,14 @@ class DetailPatientProfile extends Component {
 
     }
 
+    handleBookAppointment(){
+        return (
+            <Link to="/book-appointment">
+                <Button>Create a new appointment</Button>
+            </Link>
+        )
+    }
+
     render (){
         const {selected_patient_profile} = this.props;
 
@@ -183,6 +191,7 @@ class DetailPatientProfile extends Component {
                 <div> 
                     <PatientProfileCard user = {selected_patient_profile}/>
                     {this.renderInformation()}
+                    {this.handleBookAppointment()}
                 </div>
             )
         }

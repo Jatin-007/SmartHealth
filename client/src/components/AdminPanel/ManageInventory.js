@@ -31,13 +31,16 @@ class ManageInventory extends Component {
         }
     }
 
-    handleInventoryChange(med, inventory_list){
-        let inventory = {...this.state.inventory};
-        inventory.med = inventory_list[med] + 10;
+    // handleInventoryChange(med, inventory_list){
+    //     let inventory = {...this.state.inventory};
+    //     let parsedNumber = inventory_list.med;
+    //     parsedNumber = parsedNumber.parseInt();
+    //     inventory.med
+    //     inventory.med = parsedNumber + 10;
 
-        this.setState({inventory});
-        console.log(this.state);
-    }
+    //     this.setState({inventory});
+    //     console.log(this.state);
+    // }
 
     renderTable(){
         const {user_type} = this.props;
@@ -53,11 +56,11 @@ class ManageInventory extends Component {
                         {med}
                         </TableCell>
                         <TableCell numeric>{inventory_list[med]}</TableCell>
-                        <TableCell>
-                        <Button className="update-button-admin" variant="fab" mini color="secondary" aria-label="Add" onClick={() => this.handleInventoryChange(med, inventory_list)}>
+                        {/* <TableCell> */}
+                        {/* <Button className="update-button-admin" variant="fab" mini color="secondary" aria-label="Add" onClick={() => this.handleInventoryChange(med, inventory_list)}>
                            <AddIcon />
-                        </Button>
-                        </TableCell>
+                        </Button> */}
+                        {/* </TableCell> */}
                     </TableRow>
                 )
             })
@@ -85,7 +88,7 @@ class ManageInventory extends Component {
                                 <TableRow>
                                     <TableCell>Medicine name</TableCell>
                                     <TableCell numeric>Quantity</TableCell>
-                                    <TableCell></TableCell>
+                                    {/* <TableCell></TableCell> */}
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>

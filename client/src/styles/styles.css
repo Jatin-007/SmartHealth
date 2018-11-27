@@ -56,6 +56,14 @@
     margin-top: 20px !important;
 }
 
+.payment-div{
+    background-color: #f3f3f3;
+    border: 2px double blue;
+    border-radius: 5px 5px;
+    width: 80%;
+    margin: 20px auto;
+}
+
 /* Book Appointment */
 .book-appointment-div{
     display: flex;
@@ -251,3 +259,51 @@
     border-radius: 7px 7px;
     box-shadow: 2px 2px 2px #6b0a3a;
   }
+
+  /* credit card */
+  .margin-top50 {
+    margin-top: 50px;
+    margin-left: 30px;
+  }
+  
+  .credit {
+    margin-top: 100px;
+    height: 250px;
+    width: 400px;
+    border: 0;
+    border-radius: 10px;
+    background: url(http://www.psdgraphics.com/file/world-map-background.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+  }
+  .credit__bank {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .credit__mc {
+    width: 80px;
+    float: right;
+  }
+  .credit__card-number {
+    height: 91px;
+    padding-top: 40px;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+  .credit__ccv {
+    height: 24px;
+    float: right;
+    margin-top: -10px;
+    text-transform: uppercase;
+  }
+  .credit__name, .credit__date {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    height: 25px;
+  }
+  .credit label {
+    color: #fff;
+  }
+  
