@@ -32,17 +32,19 @@ class ButtonAppBar extends Component {
     render(){
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="static" className="menubar">
                 
                 <Toolbar>
                     <Typography variant="title" color="inherit" className="title-appbar">
                     {
                         this.props.user_profile ? 
-                        <Link to="/home">Smart Health</Link> : 
-                        <Link to="/">Smart Health</Link>
+                        <Link to="/home" className="SmartHealth">Smart Health</Link> : 
+                        <Link to="/" className="SmartHealth">Smart Health</Link>
                     }
                     </Typography>
+                    <div className="secondary-buttons">
                     {this.authentication()}
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>

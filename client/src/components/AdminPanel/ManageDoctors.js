@@ -46,14 +46,15 @@ class ManageDoctors extends Component {
     }
 
     renderTable(){
+        if(this.state.filtered_data){
+            const {filtered_data} = this.state;    
         // if(user_type){
             // if(user_type === "ADMIN"){
-                const doctors_list = this.state.filtered_data;
 
-                return Object.keys(doctors_list).map((data, index)=> {
-                    const uid = data;
+                return Object.keys(filtered_data).map((data, index)=> {
+                    // const uid = data;
 
-                    const nested_obj = doctors_list[data];
+                    const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
 
@@ -75,22 +76,23 @@ class ManageDoctors extends Component {
                             </TableCell>
                             <TableCell>{last_name}</TableCell>
                             <TableCell>{email}</TableCell>
-                            <TableCell>{dob}</TableCell>
                             <TableCell>{city}</TableCell>
+                            <TableCell>{dob}</TableCell>
                             <TableCell>{specialization}</TableCell>
                         </TableRow>
                     )
                 })    
             // }
         // }
+            }
     }
 
     filterList(e){
-        const doctors_list = this.state.data;
+        const data = this.state.data
         const query = e.target.value.toLowerCase();
 
-        let filtered_data = Object.keys(doctors_list).filter(data => {
-            const nested_obj = doctors_list[data];
+        let filtered_data = Object.values(data).filter(vals => {
+            const nested_obj = vals;
             const personal_information = nested_obj.personal_information;
             const work = nested_obj.work;
             const specialization = work.specialization;
@@ -98,7 +100,13 @@ class ManageDoctors extends Component {
             if(personal_information.first_name.toLowerCase().search(query) !== -1){
                 return data;
             }
+            if(personal_information.last_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
             else if(personal_information.email.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.city.toLowerCase().search(query) !== -1){
                 return data;
             }
             else if(specialization.toLowerCase().search(query) !== -1){
@@ -109,34 +117,34 @@ class ManageDoctors extends Component {
         this.setState({filtered_data});
     }
 
+
+    renderForm = () => {
+        return (
+            <div>
+                <form>
+                    <TextField
+                        id="outlined-full-width"
+                        label="Search"
+                        style={{ margin: 8 }}
+                        placeholder="Search for doctor by their name email, city or specialization"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.filterList.bind(this)}
+                    />
+                </form>
+            </div>
+        )
+    }
+
     render() {
 
-        const renderForm = () => {
-            return (
-                <div>
-                    <form>
-                        <TextField
-                            id="outlined-full-width"
-                            label="Search"
-                            style={{ margin: 8 }}
-                            placeholder="Search for doctor by their name or city"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            onChange={e => this.filterList(e)}
-                        />
-                    </form>
-                </div>
-            )
-        }
-        
         return (
             <div>
                 <h3>Manage Doctors</h3>
-                <hr/>
                 <div>
                     <Link to="/add-doctors">
                         <Button variant="contained" color="primary">
@@ -146,7 +154,7 @@ class ManageDoctors extends Component {
                     </Link>
                     <hr/>
                 </div>
-
+                {this.renderForm()}
                 <div className="display-table-list">
                     <Paper>
                         <Table>
@@ -154,10 +162,10 @@ class ManageDoctors extends Component {
                             <TableRow>
                                 <TableCell>Index</TableCell>
                                 <TableCell>First name</TableCell>
-                                <TableCell>Date of Birth</TableCell>
+                                <TableCell>Last name</TableCell>
+                                <TableCell>Email</TableCell>
                                 <TableCell>City</TableCell>
                                 <TableCell>Date of Birth</TableCell>
-                                <TableCell>City</TableCell>
                                 <TableCell>Specialization</TableCell>
                             </TableRow>
                             </TableHead>

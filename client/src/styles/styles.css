@@ -17,6 +17,28 @@
     float: right;
 }
 
+.menubar{
+    border: 2px solid rgb(1, 1, 66);
+    display: flex;
+    justify-content: flex-start;
+    background-color: #15445f;
+}
+
+.SmartHealth{
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: Georgia;
+    margin-right: auto;
+    align-self: flex-start;
+}
+
+.secondary-buttons {
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
 .patient-registered-div {
     margin: 20px auto;
 }
@@ -42,7 +64,7 @@
 }
 
 .patient-register-form {
-    background-color: #f3f3f3;
+    background-color: rgba(215, 230, 248, 0.733);
     text-align: center;
     margin: 20px auto;
     width: 40%;
