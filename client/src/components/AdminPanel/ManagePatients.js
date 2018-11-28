@@ -9,8 +9,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import Modal from '@material-ui/core/Modal';
 
 class ManagePatients extends Component {
     constructor(props){
@@ -18,6 +20,9 @@ class ManagePatients extends Component {
 
         this.state = {
             manage_patients: [],
+            open: false,
+            uid: "",
+            filtered_data: [],
         }
     }
 
@@ -27,7 +32,8 @@ class ManagePatients extends Component {
         if(user_profile){
             if(user_type === 'ADMIN'){
                 database.ref('/USERS/PATIENTS/detail_patients_list').on('value', (snapshot) => {
-                    this.setState({manage_patients: snapshot.val()})
+                    this.setState({manage_patients: snapshot.val()});
+                    this.setState({filtered_data: snapshot.val()});
                 })
             }
             else{
@@ -36,16 +42,36 @@ class ManagePatients extends Component {
         }
     }
 
+    handleDeleteUser(uid){
+        this.setState({open: true, uid});
+    }
+
+    manageDelete = () => {
+
+        database.ref('/USERS/PATIENTS/detail_patients_list').child(`${this.state.uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        })
+
+        database.ref('/USERS/PATIENTS/patients_list').child(`${this.state.uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        })
+    }
+
     renderTable(){
         const {user_type} = this.props;
         if(user_type){
             if(user_type === "ADMIN"){
-                const patient_list = this.state.manage_patients;
-                console.log(patient_list);
+                
+                const {filtered_data} = this.state;
 
-                return Object.keys(patient_list).map((data, index)=> {
+                return Object.keys(filtered_data).map((data, index)=> {
 
-                    const nested_obj = patient_list[data];
+                    const uid = data;
+                    const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
                     const title = personal_information.title;
                     const city = personal_information.city;
@@ -58,13 +84,18 @@ class ManagePatients extends Component {
                             {index + 1}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                            {title}
+                            {first_name}
                             </TableCell>
-                            <TableCell>{first_name}</TableCell>
-                            <TableCell>{dob}</TableCell>
+                            <TableCell>{personal_information.last_name}</TableCell>
+                            <TableCell>{personal_information.email}</TableCell>
+                            <TableCell>{personal_information.dob}</TableCell>
                             <TableCell>{city}</TableCell>
                             <TableCell>
-                            <Button variant="fab" mini color="secondary" aria-label="Add">
+                                <Button variant="fab" mini 
+                                className="update-button-admin" 
+                                color="secondary" 
+                                aria-label="Add" 
+                                onClick={() => this.handleDeleteUser(uid)}>
                             <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
@@ -74,20 +105,99 @@ class ManagePatients extends Component {
             }
         }
     }
-    render(){
 
+    filterList(e){
+        const data = this.state.manage_patients;
+        const query = e.target.value.toLowerCase();
+
+        let filtered_data = Object.values(data).filter(vals => {
+            const nested_obj = vals;
+            const personal_information = nested_obj.personal_information;
+
+            if(personal_information.first_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            if(personal_information.last_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.email.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.city.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.dob.toLowerCase().search(query) !== -1){
+                return data;
+            }
+        });
+
+        this.setState({filtered_data});
+    }
+
+    renderForm = () => {
+        return (
+            <div>
+                <form>
+                    <TextField
+                        id="outlined-full-width"
+                        label="Search"
+                        style={{ margin: 8 }}
+                        placeholder="Search for patient by their name, email, city or date-of-birth"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.filterList.bind(this)}
+                    />
+                </form>
+            </div>
+        )
+    }
+
+    handleClose = () => {
+        this.setState({open: false});
+    }
+
+    render(){
+            console.log(this.state.manage_patients);
         return (
             <div>
                 <h2>Manage patients</h2>
                 <hr/>
+                {this.renderForm()}
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                            Delete User
+                        </h2>
+                        <h3>
+                            You are about to delete a user completely from your system. To Proceed further, Click Yes.
+                        </h3>
+                        <p>
+                            Or simply tap outside the popup to cancel the action.
+                        </p>
+
+                        <Button variant="contained" color="secondary" onClick={this.manageDelete.bind(this)}>
+                            Yes, Delete the user!
+                        </Button>
+                    </div>
+                </Modal>
                 <div className="display-table-list">
                         <Paper>
                             <Table>
                                 <TableHead>
                                 <TableRow>
                                     <TableCell>Index</TableCell>
-                                    <TableCell>Title</TableCell>
-                                    <TableCell>First name</TableCell>
+                                    <TableCell>First Name</TableCell>
+                                    <TableCell>Last name</TableCell>
+                                    <TableCell>Email</TableCell>
                                     <TableCell>Date of Birth</TableCell>
                                     <TableCell>City</TableCell>
                                     <TableCell></TableCell>

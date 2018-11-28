@@ -11,6 +11,7 @@ import {userAuth} from './actions/authActions';
 import {firebase} from './firebase'
 
 import './styles/styles.css';
+// import './styles/style.scss';
 import ButtonAppBar from './components/appBar';
 import PasswordForget from './components/passwordForget';
 import PatientRegister from './components/PatientRegister';

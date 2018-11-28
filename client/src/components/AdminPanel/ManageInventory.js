@@ -31,13 +31,23 @@ class ManageInventory extends Component {
         }
     }
 
+    // handleInventoryChange(med, inventory_list){
+    //     let inventory = {...this.state.inventory};
+    //     let parsedNumber = inventory_list.med;
+    //     parsedNumber = parsedNumber.parseInt();
+    //     inventory.med
+    //     inventory.med = parsedNumber + 10;
+
+    //     this.setState({inventory});
+    //     console.log(this.state);
+    // }
+
     renderTable(){
         const {user_type} = this.props;
         if(user_type){
         if(user_type === "ADMIN"){
 
             const inventory_list = this.state.inventory;
-            console.log(inventory_list);
 
             return Object.keys(inventory_list).map(med => {
                 return (
@@ -46,11 +56,11 @@ class ManageInventory extends Component {
                         {med}
                         </TableCell>
                         <TableCell numeric>{inventory_list[med]}</TableCell>
-                        <TableCell>
-                        <Button variant="fab" mini color="secondary" aria-label="Add">
+                        {/* <TableCell> */}
+                        {/* <Button className="update-button-admin" variant="fab" mini color="secondary" aria-label="Add" onClick={() => this.handleInventoryChange(med, inventory_list)}>
                            <AddIcon />
-                        </Button>
-                        </TableCell>
+                        </Button> */}
+                        {/* </TableCell> */}
                     </TableRow>
                 )
             })
@@ -65,6 +75,7 @@ class ManageInventory extends Component {
 }
 
     render() {
+        console.log(this.state.inventory.Advil);
 
             return (
                 <div>
@@ -77,7 +88,7 @@ class ManageInventory extends Component {
                                 <TableRow>
                                     <TableCell>Medicine name</TableCell>
                                     <TableCell numeric>Quantity</TableCell>
-                                    <TableCell></TableCell>
+                                    {/* <TableCell></TableCell> */}
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>

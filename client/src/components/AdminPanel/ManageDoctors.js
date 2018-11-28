@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
 
 class ManageDoctors extends Component {
     constructor(props){
@@ -22,6 +23,7 @@ class ManageDoctors extends Component {
             doctors_list: [],
             data: "",
             filtered_data: "",
+            selected_doctor_uid: ""
         }
     }
 
@@ -44,21 +46,17 @@ class ManageDoctors extends Component {
     }
 
     renderTable(){
-        const {user_type} = this.props;
+        if(this.state.filtered_data){
+            const {filtered_data} = this.state;    
         // if(user_type){
-            console.log('filtered_dataaa', this.state.filtered_data);
             // if(user_type === "ADMIN"){
-                const doctors_list = this.state.filtered_data;
 
-                console.log(doctors_list);
+                return Object.keys(filtered_data).map((data, index)=> {
+                    // const uid = data;
 
-                return Object.keys(doctors_list).map((data, index)=> {
-
-                    const nested_obj = doctors_list[data];
+                    const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
-
-                    console.log(doctors_list[data]);
 
                     const city = personal_information.city;
                     const dob = personal_information.dob;
@@ -78,38 +76,37 @@ class ManageDoctors extends Component {
                             </TableCell>
                             <TableCell>{last_name}</TableCell>
                             <TableCell>{email}</TableCell>
-                            <TableCell>{dob}</TableCell>
                             <TableCell>{city}</TableCell>
+                            <TableCell>{dob}</TableCell>
                             <TableCell>{specialization}</TableCell>
-                            <TableCell>
-                            <Button variant="fab" mini color="secondary" aria-label="Add">
-                                <DeleteSharpIcon  />
-                            </Button>
-                            </TableCell>
                         </TableRow>
                     )
                 })    
             // }
         // }
+            }
     }
 
     filterList(e){
-        const doctors_list = this.state.data;
-        console.log(doctors_list);
+        const data = this.state.data
         const query = e.target.value.toLowerCase();
 
-        let filtered_data = Object.keys(doctors_list).filter(data => {
-            const nested_obj = doctors_list[data];
+        let filtered_data = Object.values(data).filter(vals => {
+            const nested_obj = vals;
             const personal_information = nested_obj.personal_information;
             const work = nested_obj.work;
             const specialization = work.specialization;
 
-            console.log(personal_information, work, specialization);
-
             if(personal_information.first_name.toLowerCase().search(query) !== -1){
                 return data;
             }
+            if(personal_information.last_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
             else if(personal_information.email.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.city.toLowerCase().search(query) !== -1){
                 return data;
             }
             else if(specialization.toLowerCase().search(query) !== -1){
@@ -118,50 +115,46 @@ class ManageDoctors extends Component {
         });
 
         this.setState({filtered_data});
-        console.log(this.state.filtered_data);
+    }
+
+
+    renderForm = () => {
+        return (
+            <div>
+                <form>
+                    <TextField
+                        id="outlined-full-width"
+                        label="Search"
+                        style={{ margin: 8 }}
+                        placeholder="Search for doctor by their name email, city or specialization"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.filterList.bind(this)}
+                    />
+                </form>
+            </div>
+        )
     }
 
     render() {
 
-        const renderForm = () => {
-            return (
-                <div>
-                    <form>
-                        <TextField
-                            id="outlined-full-width"
-                            label="Search"
-                            style={{ margin: 8 }}
-                            placeholder="Search for doctor by their name or city"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            onChange={e => this.filterList(e)}
-                        />
-                    </form>
-                </div>
-            )
-        }
-        
         return (
             <div>
                 <h3>Manage Doctors</h3>
-                <hr/>
-
-                {/* {renderForm()} */}
-
                 <div>
                     <Link to="/add-doctors">
-                        <Button variant="contained" color="default">
-                            Add a Doctor
+                        <Button variant="contained" color="primary">
+                            Add a Doctor   
                             <CloudUploadIcon/>
                         </Button>
                     </Link>
                     <hr/>
                 </div>
-
+                {this.renderForm()}
                 <div className="display-table-list">
                     <Paper>
                         <Table>
@@ -169,10 +162,10 @@ class ManageDoctors extends Component {
                             <TableRow>
                                 <TableCell>Index</TableCell>
                                 <TableCell>First name</TableCell>
-                                <TableCell>Date of Birth</TableCell>
+                                <TableCell>Last name</TableCell>
+                                <TableCell>Email</TableCell>
                                 <TableCell>City</TableCell>
                                 <TableCell>Date of Birth</TableCell>
-                                <TableCell>City</TableCell>
                                 <TableCell>Specialization</TableCell>
                             </TableRow>
                             </TableHead>

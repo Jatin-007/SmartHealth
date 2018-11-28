@@ -17,6 +17,28 @@
     float: right;
 }
 
+.menubar{
+    border: 2px solid rgb(1, 1, 66);
+    display: flex;
+    justify-content: flex-start;
+    background-color: #15445f;
+}
+
+.SmartHealth{
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: Georgia;
+    margin-right: auto;
+    align-self: flex-start;
+}
+
+.secondary-buttons {
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
 .patient-registered-div {
     margin: 20px auto;
 }
@@ -42,7 +64,7 @@
 }
 
 .patient-register-form {
-    background-color: #f3f3f3;
+    background-color: rgba(215, 230, 248, 0.733);
     text-align: center;
     margin: 20px auto;
     width: 40%;
@@ -54,6 +76,14 @@
     float:right;
     right: 100px;
     margin-top: 20px !important;
+}
+
+.payment-div{
+    background-color: #f3f3f3;
+    border: 2px double blue;
+    border-radius: 5px 5px;
+    width: 80%;
+    margin: 20px auto;
 }
 
 /* Book Appointment */
@@ -118,6 +148,9 @@
     box-shadow: 2px 5px 5px red;
 }
 
+.update-button-admin{
+    float: right;
+}
 
 /* New doctor div */
 
@@ -237,3 +270,62 @@
   #user-profile .avatar img {
     width: 100%;
   }
+
+  .modal-div{
+    background-color: #f3f3f3;
+    border: 2px solid red;
+    width: 50%;
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 7px 7px;
+    box-shadow: 2px 2px 2px #6b0a3a;
+  }
+
+  /* credit card */
+  .margin-top50 {
+    margin-top: 50px;
+    margin-left: 30px;
+  }
+  
+  .credit {
+    margin-top: 100px;
+    height: 250px;
+    width: 400px;
+    border: 0;
+    border-radius: 10px;
+    background: url(http://www.psdgraphics.com/file/world-map-background.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+  }
+  .credit__bank {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .credit__mc {
+    width: 80px;
+    float: right;
+  }
+  .credit__card-number {
+    height: 91px;
+    padding-top: 40px;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+  .credit__ccv {
+    height: 24px;
+    float: right;
+    margin-top: -10px;
+    text-transform: uppercase;
+  }
+  .credit__name, .credit__date {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    height: 25px;
+  }
+  .credit label {
+    color: #fff;
+  }
+  

@@ -92,8 +92,11 @@ class PatientList extends Component {
     }
 
     render (){
+        const {user_profile, user_type} = this.props;
 
-        console.log(this.state);
+        if(!user_profile || (user_profile && user_type === "PATIENT")){
+            return <Redirect to="/404"/>
+        }
         if(this.state.renderRedirect){
             return <Redirect to="/patient-detail"/>
         }
@@ -125,11 +128,13 @@ class PatientList extends Component {
 
 const mapStateToProps = state => {
     const {
-        patient_list_collections
+        patient_list_collections,
+        user_profile, user_type
     } = state.authReducer;
 
     return {
-        patient_list_collections
+        patient_list_collections,
+        user_profile, user_type
     }
 }
 

@@ -7,8 +7,8 @@ import Button from '@material-ui/core/Button';
 import { Select, MenuItem } from '@material-ui/core';
 
 import {auth} from '../../firebase';
-import dr_avatar from '../../assets/dr_avatar.png'
 // import * as admin from '../../firebase/adminConfig';
+import Modal from '@material-ui/core/Modal';
 
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 
@@ -40,6 +40,7 @@ class AddNewDoctor extends Component {
             new_doctors_password: "iamanewdoctor",
             new_doctor_uid: "",
             new_doctor_auth: "",
+            open: false,
         };
     }
 
@@ -67,15 +68,19 @@ class AddNewDoctor extends Component {
         this.setState({province: val})
     }
 
+    handleClose(){
+        this.setState({open: false});
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
         // const {user_profile, user_type} = this.props;
 
         auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.new_doctors_password).then(
             authUser => {
-                console.log(authUser);
                 this.setState({new_doctor_uid: authUser.user.uid});
                 this.setState({new_doctor_auth: authUser})
+                return <Redirect to="/home"/>
             }
         )
         
@@ -149,23 +154,33 @@ class AddNewDoctor extends Component {
             database.ref(`/USERS/DOCTOR/specialization/${specialization}/`).update(specialization_data);
             database.ref(`/USERS/users_type/`).update(user_type_data);
         }
+    }
 
-        // admin.auth().createuser({
-        //     email: "user@example.com",
-        //     emailVerified: false,
-        //     phoneNumber: "+11234567890",
-        //     password: "secretPassword",
-        //     displayName: "John Doe",
-        //     photoURL: "http://www.example.com/12345678/photo.png",
-        //     disabled: false
-        // }).then(function(userRecord) {
-        //     // See the UserRecord reference doc for the contents of userRecord.
-        //     console.log("Successfully created new user:", userRecord.uid);
-        //   })
-        //   .catch(function(error) {
-        //     console.log("Error creating new user:", error);
-        //   });
-
+    renderModal(){
+        return(
+            <div>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                        Redirecting to Doctor's Account
+                        </h2>
+                        <h3>
+                        In order to complete a successful creation and verification of new acount, you are being logged out and switched from Admin's account to Doctor's account !
+                        </h3>
+                        <p>
+                        Just a reminder: the Initial login password for all new doctors is:
+                        <br/>
+                        'iamanewdoctor'
+                        </p>
+                    </div>
+                </Modal>
+            </div>
+        )
     }
 
     renderForm(){
@@ -334,7 +349,7 @@ class AddNewDoctor extends Component {
         const user_type = this.props.user_type;
 
         if(user_type !== "ADMIN"){
-            <Redirect to="/home"/>
+            return <Redirect to="/home"/>
         }
 
         return (
@@ -342,6 +357,7 @@ class AddNewDoctor extends Component {
                 <h2>Add a new Doctor here</h2>
                 <hr/>
                 {this.renderForm()}
+                {this.renderModal()}
             </div>
         )
     }

@@ -45,6 +45,15 @@ class Register extends Component {
   
     }    
 
+    // handleEmailValidation(e){
+    //     e.preventDefault;
+
+    //     const email = e.target.value;
+    //     if(email.contains("@") && email.contains(".")){
+            
+    //     }
+    // }
+
     render () {
 
         const {
@@ -84,7 +93,7 @@ class Register extends Component {
                         label="email"
                         value={email}
                         placeholder = "enter your email here here"
-                        onChange={e => {this.setState({'email' : e.target.value})}}
+                        onChange={e => {this.setState({'email': e.target.value})}}
                     />
                     </div>
 
@@ -120,5 +129,6 @@ class Register extends Component {
         )
     }
 }
+
 
 export default withRouter(Register);

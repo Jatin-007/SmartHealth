@@ -12,7 +12,7 @@ import dr_avatar from '../../assets/dr_avatar.png'
 
       return (
        <div className="avatar" >
-             <img src={dr_avatar} className={style}/> 
+             <img src={dr_avatar} alt="doctor-profile" className={style}/> 
         </div>
       );
     }

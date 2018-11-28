@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import dr_avatar from '../../assets/dr_avatar.png'
+import people from '../../assets/people.png'
   
   
   class Avatar extends Component {
@@ -12,7 +12,7 @@ import dr_avatar from '../../assets/dr_avatar.png'
 
       return (
        <div className="avatar" >
-             <img src={dr_avatar} className={style}/> 
+             <img src={people} alt="patient-profile" className={style}/> 
         </div>
       );
     }
@@ -22,8 +22,10 @@ import dr_avatar from '../../assets/dr_avatar.png'
     render() {
       const {info} = this.props;
       const personal_information = info.personal_information;
-      const work = info.work;
-
+      const emergency_contact = info.emergency_contact;
+      const insurance_information = info.insurance_information;
+      const common_health_information = info.common_health_information;
+      
       const name = `${personal_information.first_name} ${personal_information.last_name}`;
       
       return (
@@ -31,20 +33,27 @@ import dr_avatar from '../../assets/dr_avatar.png'
           <div className="top">
               <Avatar 
               /> 
-              <h2>{name}</h2>
+              <h1>{name}</h1>
+              {common_health_information.blood_group ? <h5>Blood Group: {common_health_information.blood_group}</h5> : ""}
               <hr />
-              <h3>{personal_information.email}</h3>
+              <h2>{personal_information.phone} | {personal_information.email}</h2>
               <h4>{personal_information.city}, {personal_information.province}</h4>
-              <h5>{personal_information.country}</h5>
-
           </div>
           
           <div className="bottom">
-            <h3>Work Summary</h3>
+            <h2>Insurance Information</h2>
             <hr />
-            <h3>{work.specialization}</h3>
-            <h5>Years of experience: {work.years_of_exp}</h5>
-            <p>{work.summary}</p>
+            <h3>{insurance_information.name}</h3>
+            <h5>{insurance_information.insurance_number}</h5>
+            <h5>{insurance_information.expiry_date}</h5>
+          </div>
+          
+          <div className="bottom">
+            <h2>Emergency Contact Information</h2>
+            <hr />
+            <h3>{emergency_contact.name}</h3>
+            <h4>{emergency_contact.relationship}</h4>
+            <h5>{emergency_contact.mobile}</h5>
           </div>
         </div>
       );
@@ -55,7 +64,7 @@ import dr_avatar from '../../assets/dr_avatar.png'
   class DoctorProfileCard extends Component {
     render() {
         const {user} = this.props;
-        console.log(user);
+
       return (
         <div id="user-profile">
           <MainPanel info={user} />
