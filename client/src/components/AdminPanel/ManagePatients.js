@@ -67,15 +67,12 @@ class ManagePatients extends Component {
             if(user_type === "ADMIN"){
                 
                 const {filtered_data} = this.state;
-
                 return Object.keys(filtered_data).map((data, index)=> {
 
                     const uid = data;
                     const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
-                    const title = personal_information.title;
                     const city = personal_information.city;
-                    const dob = personal_information.dob;
                     const first_name = personal_information.first_name;
 
                     return (
@@ -189,6 +186,7 @@ class ManagePatients extends Component {
                         </Button>
                     </div>
                 </Modal>
+
                 <div className="display-table-list">
                         <Paper>
                             <Table>

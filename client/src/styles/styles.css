@@ -9,6 +9,10 @@
 
 }
 
+.error {
+    color: red;
+}
+
 .form-name-div > TextFeild{
     padding: 10px;
 }
