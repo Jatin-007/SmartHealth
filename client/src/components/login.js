@@ -81,7 +81,7 @@ class Login_Page extends Component {
 
                         <Link to='/password-reset'><Button variant="outlined" color="secondary">Forgot Password</Button></Link>
 
-                        {error && <p>{error.message}</p>}
+                        {error && <p className="error">{error.message || error}</p>}
                 </form>
 
                 <div>

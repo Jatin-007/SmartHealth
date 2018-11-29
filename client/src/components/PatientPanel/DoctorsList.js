@@ -42,7 +42,7 @@ class DoctorsList extends Component {
         return Object.keys(list_of_doctors).map((data, index) => {
                 const innervalue = list_of_doctors[data];
                     if( typeof(innervalue) === "object"){
-                        const name = `${innervalue.firstName} ${innervalue.lastName}`;
+                        const name = `${innervalue.first_name} ${innervalue.last_name}`;
                         const email = `${innervalue.email}`;
                         const city = `${innervalue.city}`;
                         const years_of_experience = `${innervalue.years_of_exp}`;
