@@ -30,7 +30,7 @@ class Profile extends Component {
 
         const renderProfile = () => {
             if(detail_user_profile && user_type === "PATIENT"){
-
+                        console.log(user_type);
                 return (
                     <div>
                         <PatientProfile detail_user_profile={detail_user_profile} />

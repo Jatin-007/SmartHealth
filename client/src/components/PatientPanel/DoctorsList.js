@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import {database} from '../../firebase/config';
 
+import TextField from '@material-ui/core/TextField';
 import {Redirect} from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,6 +19,8 @@ class DoctorsList extends Component {
 
         this.state = {
             renderRedirect: false,
+            data: "",
+            filtered_data: ""
         }
     }
 
@@ -47,7 +49,6 @@ class DoctorsList extends Component {
                         const city = `${innervalue.city}`;
                         const years_of_experience = `${innervalue.years_of_exp}`;
                     
-
                     return (
                     <TableRow key={index} className="detail-patient-div" onClick={() => this.handleClick(data)}>
                          <TableCell>
@@ -61,6 +62,69 @@ class DoctorsList extends Component {
                     )
                 }
         })
+    }
+
+    filterList(e){
+
+        const data = this.state.data
+        const query = e.target.value.toLowerCase();
+
+        let filtered_data = Object.values(data).filter(vals => {
+            const nested_obj = vals;
+            const personal_information = nested_obj.personal_information;
+            const work = nested_obj.work;
+            const specialization = work.specialization;
+
+            if(personal_information.first_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            if(personal_information.last_name.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.email.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(personal_information.city.toLowerCase().search(query) !== -1){
+                return data;
+            }
+            else if(specialization.toLowerCase().search(query) !== -1){
+                return data;
+            }
+        });
+
+        this.setState({filtered_data});
+    }
+
+    componentDidMount(){
+        const {list_of_doctors} = this.props;
+        if(list_of_doctors){
+            this.setState({
+                data: list_of_doctors,
+                filtered_data: list_of_doctors
+            })
+        }
+    }
+
+    renderForm = () => {
+        return (
+            <div>
+                <form>
+                    <TextField
+                        id="outlined-full-width"
+                        label="Search"
+                        style={{ margin: 8 }}
+                        placeholder="Search for doctor by their name email, city or specialization"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.filterList.bind(this)}
+                    />
+                </form>
+            </div>
+        )
     }
 
     displayList(){
@@ -78,8 +142,8 @@ class DoctorsList extends Component {
                             <TableRow>
                                 <TableCell>Index</TableCell>
                                 <TableCell>Doctor Name</TableCell>
-                                <TableCell>Clinic Location</TableCell>
-                                <TableCell>Age</TableCell>
+                                <TableCell>email</TableCell>
+                                <TableCell>Location</TableCell>
                                 <TableCell>Years of experience</TableCell>
                             </TableRow>
                             </TableHead>
@@ -97,6 +161,8 @@ class DoctorsList extends Component {
     render (){
 
         const {speciality_selected} = this.props;
+        console.log(this.state);
+
 
         if(!speciality_selected) {
             return <Redirect to="/book-appointment"/>
@@ -107,6 +173,7 @@ class DoctorsList extends Component {
         
         return (
             <div>
+                {this.renderForm()}
                 {this.displayList()}
             </div>
         )

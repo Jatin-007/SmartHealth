@@ -23,7 +23,8 @@ class ManageDoctors extends Component {
             doctors_list: [],
             data: "",
             filtered_data: "",
-            selected_doctor_uid: ""
+            selected_doctor_uid: "",
+            open: "",
         }
     }
 
@@ -43,6 +44,15 @@ class ManageDoctors extends Component {
                 return <Redirect to="/404" />
             }
         }
+    }
+
+    handleDeleteUser = () => {
+        console.log('triggered');
+        this.setState({open: true});
+    }
+
+    handleClose = () => {
+        this.setState({open: false});
     }
 
     renderTable(){
@@ -79,6 +89,15 @@ class ManageDoctors extends Component {
                             <TableCell>{city}</TableCell>
                             <TableCell>{dob}</TableCell>
                             <TableCell>{specialization}</TableCell>
+                            <TableCell>
+                                <Button variant="fab" mini 
+                                className="update-button-admin" 
+                                color="secondary" 
+                                aria-label="Add" 
+                                onClick={() => this.handleDeleteUser()}>
+                            <DeleteSharpIcon  />
+                            </Button>
+                            </TableCell>
                         </TableRow>
                     )
                 })    
@@ -115,6 +134,10 @@ class ManageDoctors extends Component {
         });
 
         this.setState({filtered_data});
+    }
+
+    manageDelete = () => {
+        console.log('manageDelete action triggered here');
     }
 
 
@@ -155,6 +178,30 @@ class ManageDoctors extends Component {
                     <hr/>
                 </div>
                 {this.renderForm()}
+
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                            Delete User
+                        </h2>
+                        <h3>
+                            You are about to delete a user completely from your system. To Proceed further, Click Yes.
+                        </h3>
+                        <p>
+                            Or simply tap outside the popup to cancel the action.
+                        </p>
+
+                        <Button variant="contained" color="secondary" onClick={this.manageDelete.bind(this)}>
+                            Yes, Delete the user!
+                        </Button>
+                    </div>
+                </Modal>
+
                 <div className="display-table-list">
                     <Paper>
                         <Table>
@@ -167,6 +214,7 @@ class ManageDoctors extends Component {
                                 <TableCell>City</TableCell>
                                 <TableCell>Date of Birth</TableCell>
                                 <TableCell>Specialization</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
