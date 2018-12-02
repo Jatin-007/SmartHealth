@@ -25,6 +25,7 @@ class ManageDoctors extends Component {
             filtered_data: "",
             selected_doctor_uid: "",
             open: "",
+            specialization:"",
         }
     }
 
@@ -35,7 +36,6 @@ class ManageDoctors extends Component {
             if(user_type === "ADMIN"){
                 await database.ref('/USERS/DOCTOR/detail_user_data').on('value', (snapshot) => {
                     this.setState({doctors_list: snapshot.val()});
-
                     this.setState({data: snapshot.val()});
                     this.setState({filtered_data: snapshot.val()});                    
                 })
@@ -46,9 +46,12 @@ class ManageDoctors extends Component {
         }
     }
 
-    handleDeleteUser = () => {
-        console.log('triggered');
-        this.setState({open: true});
+    handleDeleteUser = (uid, specialization) => {
+        this.setState({
+            selected_doctor_uid: uid,
+            specialization,
+            open: true
+        });
     }
 
     handleClose = () => {
@@ -62,8 +65,7 @@ class ManageDoctors extends Component {
             // if(user_type === "ADMIN"){
 
                 return Object.keys(filtered_data).map((data, index)=> {
-                    // const uid = data;
-
+                    const uid = data;
                     const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
@@ -94,7 +96,7 @@ class ManageDoctors extends Component {
                                 className="update-button-admin" 
                                 color="secondary" 
                                 aria-label="Add" 
-                                onClick={() => this.handleDeleteUser()}>
+                                onClick={() => this.handleDeleteUser(uid, specialization)}>
                             <DeleteSharpIcon  />
                             </Button>
                             </TableCell>
@@ -137,7 +139,18 @@ class ManageDoctors extends Component {
     }
 
     manageDelete = () => {
-        console.log('manageDelete action triggered here');
+        console.log(this.state.selected_doctor_uid);
+        database.ref(`/USERS/DOCTOR/detail_user_data`).child(`${this.state.selected_doctor_uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        });
+        
+        database.ref(`/USERS/DOCTOR/specialization/${this.state.specialization}`).child(`${this.state.selected_doctor_uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        });
     }
 
 
