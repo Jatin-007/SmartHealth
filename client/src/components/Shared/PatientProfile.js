@@ -40,7 +40,8 @@ class PatientProfile extends Component {
 
     componentDidMount(){
         const {detail_user_profile} = this.props;
-
+        
+        if(detail_user_profile){
         const {personal_information, insurance_information, medications, emergency_contact, common_health_information} = detail_user_profile;
         const {address1, address2, city, province, dob, email, first_name, gender, last_name, marital_status, phone, title} = personal_information;
         const {expiry_date, insurance_number,} = insurance_information;
@@ -54,11 +55,14 @@ class PatientProfile extends Component {
             expiry_date, in_name, insurance_number,
             address, mobile, em_name, relationship
         })
+        }
     }
 
     onSubmit(e){
         e.preventDefault();
         // need to complete this as well
+        //
+        //
     }
 
     renderPatientForm(){
@@ -288,4 +292,14 @@ class PatientProfile extends Component {
     }
 }
 
-export default PatientProfile;
+// const mapStateToProps = state => {
+//     const {
+//         detail_user_profile
+//     } = state.authReducer;
+
+//     return {
+//         detail_user_profile
+//     }
+// }
+
+export default connect()(PatientProfile);
