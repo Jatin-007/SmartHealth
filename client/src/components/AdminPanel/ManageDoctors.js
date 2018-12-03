@@ -23,7 +23,9 @@ class ManageDoctors extends Component {
             doctors_list: [],
             data: "",
             filtered_data: "",
-            selected_doctor_uid: ""
+            selected_doctor_uid: "",
+            open: "",
+            specialization:"",
         }
     }
 
@@ -34,7 +36,6 @@ class ManageDoctors extends Component {
             if(user_type === "ADMIN"){
                 await database.ref('/USERS/DOCTOR/detail_user_data').on('value', (snapshot) => {
                     this.setState({doctors_list: snapshot.val()});
-
                     this.setState({data: snapshot.val()});
                     this.setState({filtered_data: snapshot.val()});                    
                 })
@@ -45,6 +46,18 @@ class ManageDoctors extends Component {
         }
     }
 
+    handleDeleteUser = (uid, specialization) => {
+        this.setState({
+            selected_doctor_uid: uid,
+            specialization,
+            open: true
+        });
+    }
+
+    handleClose = () => {
+        this.setState({open: false});
+    }
+
     renderTable(){
         if(this.state.filtered_data){
             const {filtered_data} = this.state;    
@@ -52,8 +65,7 @@ class ManageDoctors extends Component {
             // if(user_type === "ADMIN"){
 
                 return Object.keys(filtered_data).map((data, index)=> {
-                    // const uid = data;
-
+                    const uid = data;
                     const nested_obj = filtered_data[data];
                     const personal_information = nested_obj.personal_information;
                     const work = nested_obj.work;
@@ -79,6 +91,15 @@ class ManageDoctors extends Component {
                             <TableCell>{city}</TableCell>
                             <TableCell>{dob}</TableCell>
                             <TableCell>{specialization}</TableCell>
+                            <TableCell>
+                                <Button variant="fab" mini 
+                                className="update-button-admin" 
+                                color="secondary" 
+                                aria-label="Add" 
+                                onClick={() => this.handleDeleteUser(uid, specialization)}>
+                            <DeleteSharpIcon  />
+                            </Button>
+                            </TableCell>
                         </TableRow>
                     )
                 })    
@@ -115,6 +136,21 @@ class ManageDoctors extends Component {
         });
 
         this.setState({filtered_data});
+    }
+
+    manageDelete = () => {
+        console.log(this.state.selected_doctor_uid);
+        database.ref(`/USERS/DOCTOR/detail_user_data`).child(`${this.state.selected_doctor_uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        });
+        
+        database.ref(`/USERS/DOCTOR/specialization/${this.state.specialization}`).child(`${this.state.selected_doctor_uid}`).remove().then(() => {
+            this.setState({
+                open: false
+            })
+        });
     }
 
 
@@ -155,6 +191,30 @@ class ManageDoctors extends Component {
                     <hr/>
                 </div>
                 {this.renderForm()}
+
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    >
+                    <div className="modal-div">
+                        <h2>
+                            Delete User
+                        </h2>
+                        <h3>
+                            You are about to delete a user completely from your system. To Proceed further, Click Yes.
+                        </h3>
+                        <p>
+                            Or simply tap outside the popup to cancel the action.
+                        </p>
+
+                        <Button variant="contained" color="secondary" onClick={this.manageDelete.bind(this)}>
+                            Yes, Delete the user!
+                        </Button>
+                    </div>
+                </Modal>
+
                 <div className="display-table-list">
                     <Paper>
                         <Table>
@@ -167,6 +227,7 @@ class ManageDoctors extends Component {
                                 <TableCell>City</TableCell>
                                 <TableCell>Date of Birth</TableCell>
                                 <TableCell>Specialization</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>

@@ -19,8 +19,8 @@ class AddNewDoctor extends Component {
     constructor(props){
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             email: "",
             dob: undefined,
             address: "",
@@ -86,8 +86,8 @@ class AddNewDoctor extends Component {
         
         if(this.state.new_doctor_auth) {
             const uid = this.state.new_doctor_uid;
-            const {firstName,
-                lastName,
+            const {first_name,
+                last_name,
                 email,
                 address,
                 maritalState,
@@ -105,8 +105,8 @@ class AddNewDoctor extends Component {
             const detail_doctor_data = {
                 [uid] : {
                     personal_information: {
-                        first_name: firstName,
-                        last_name: lastName,
+                        first_name,
+                        last_name,
                         email,
                         address,
                         maritalState,
@@ -128,8 +128,8 @@ class AddNewDoctor extends Component {
 
             const specialization_data = {
                 [uid]: {
-                    firstName,
-                    lastName,
+                    first_name,
+                    last_name,
                     email,
                     city,
                     uni_name,
@@ -141,7 +141,7 @@ class AddNewDoctor extends Component {
                 }
             }
 
-            const name = `${firstName} ${lastName}`;
+            const name = `${first_name} ${last_name}`;
 
             const user_type_data = {
                 [uid]: {
@@ -193,8 +193,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="First name"
-                                value={this.state.firstName}
-                                onChange={e => this.setState({firstName: e.target.value})}
+                                value={this.state.first_name}
+                                onChange={e => this.setState({first_name: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />
@@ -202,8 +202,8 @@ class AddNewDoctor extends Component {
                         <div>
                             <TextField
                                 label="Last name"
-                                value={this.state.lastName}
-                                onChange={e => this.setState({lastName: e.target.value})}
+                                value={this.state.last_name}
+                                onChange={e => this.setState({last_name: e.target.value})}
                                 fullWidth
                                 margin="normal"
                             />

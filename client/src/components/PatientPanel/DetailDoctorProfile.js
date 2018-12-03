@@ -68,7 +68,6 @@ class DetailDoctorProfile extends Component {
         else {
             Object.keys(selected_doctor_booked_slots).map(objkeys => {
                 let objvals = selected_doctor_booked_slots[objkeys];
-                console.log(objvals);
             })
         }
     }
@@ -92,7 +91,6 @@ class DetailDoctorProfile extends Component {
 
     handleNext(e){
         e.preventDefault();
-        console.log(e);
         this.setState({
             open: true
         })
@@ -115,8 +113,6 @@ class DetailDoctorProfile extends Component {
 
     renderInsurance(){
         const {insurance, insurance_information} = this.state;
-        console.log(insurance_information);
-        
         if(insurance_information){
             return (
                 <div className="payment-div">
