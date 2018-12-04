@@ -61,7 +61,7 @@ class SecondaryInformationForm extends Component {
         return (
             <div>
                     {this.state.renderRedirect && <Redirect to="/home"/>}
-                <div className="patient-register-form">
+                <div className="login-body">
                     <form onSubmit={this.onSubmit.bind(this)}>
                             <h2>Health Information</h2>
                             <div>

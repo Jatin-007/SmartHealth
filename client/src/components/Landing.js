@@ -5,7 +5,9 @@ class Landing extends Component {
     render () {
         return (
             <div className="landing-body">
-                <h1>Landing</h1>
+                <div>
+                <h1>Welcome to Smart Health</h1>
+                </div>
             </div>
         )
     }

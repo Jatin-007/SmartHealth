@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PasswordProfile from './PasswordProfile';
 import {database} from '../../firebase/config';
+import {auth} from '../../firebase';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -58,11 +59,85 @@ class PatientProfile extends Component {
         }
     }
 
+    selectCountry(val){
+        this.setState({country: val})
+    }
+
+    selectProvince(val){
+        this.setState({province: val})
+    }
+
     onSubmit(e){
+        const {
+            address1, address2, city, province, dob, email, first_name, gender, last_name, marital_status, phone, title,
+            expiry_date, insurance_number,
+            address, mobile, relationship
+        } = this.state;
+
         e.preventDefault();
-        // need to complete this as well
-        //
-        //
+        const name = this.state.first_name + " " + this.state.last_name;
+        auth.updateUserProfile(name).then(() => {
+            console.log('works');
+        });
+
+        const uid = this.props.user_profile.uid;
+
+        const personal_information = {
+            
+                personal_information: {
+                    title,
+                    first_name,
+                    last_name,
+                    gender,
+                    marital_status,
+                    email,
+                    phone,
+                    dob,
+                    address1,
+                    address2,
+                    city,
+                    province,
+                }
+            
+        }
+
+        const data_for_user_types = {
+            [uid]: {
+                name: first_name,
+                type: "PATIENT",
+                gender: this.state.gender,
+            }
+        }
+
+        const patients_list_data = {
+            [uid]:{
+                name,
+                gender: this.state.gender,
+            }
+        }
+
+        const up_insurance_information = {
+            insurance_information:{
+                insurance_number,
+                name: this.state.in_name,
+                expiry_date,
+            }
+        };
+
+        const up_emergency_contact = {
+            emergency_contact: {
+                name: this.state.em_name,
+                relationship,
+                address,
+                mobile,
+            }
+        };
+
+        database.ref().child(`/USERS/PATIENTS/detail_patients_list/${uid}`).update(personal_information);
+        database.ref().child('/USERS/users_type/').update(data_for_user_types);
+        database.ref().child('/USERS/PATIENTS/patients_list').update(patients_list_data);
+        database.ref().child(`/USERS/PATIENTS/detail_patients_list/${uid}`).update(up_insurance_information);
+        database.ref().child(`/USERS/PATIENTS/detail_patients_list/${uid}`).update(up_emergency_contact);
     }
 
     renderPatientForm(){
@@ -266,7 +341,7 @@ class PatientProfile extends Component {
                         <div>
                             <TextField
                                 label="Expiry date"
-                                value={this.state.expiry_date || expiry_date}
+                                value={this.state.expiry_date || expiry_date || " "}
                                 onChange={e => this.setState ({expiry_date: e.target.value})}
                                 fullWidth
                                 margin="normal"
@@ -292,14 +367,14 @@ class PatientProfile extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     const {
-//         detail_user_profile
-//     } = state.authReducer;
+const mapStateToProps = state => {
+    const {
+        user_profile,
+    } = state.authReducer;
 
-//     return {
-//         detail_user_profile
-//     }
-// }
+    return {
+        user_profile
+    }
+}
 
-export default connect()(PatientProfile);
+export default connect(mapStateToProps)(PatientProfile);

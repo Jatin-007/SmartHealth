@@ -77,7 +77,6 @@ class PatientList extends Component {
             // patient_list_collections[val].map(nested_key => {
                 const nested_obj = patient_list_collections[val];
                 // Object.keys(nested_obj).map(nested_val => {
-
                     return (
                     <TableRow key={index} onClick={() => this.handleClick(val)} className="detail-patient-div">
                          <TableCell>
@@ -85,15 +84,14 @@ class PatientList extends Component {
                          </TableCell>
                          <TableCell>{nested_obj["gender"]}</TableCell>
                          <TableCell>{nested_obj["name"]}</TableCell>
-                         <TableCell>{nested_obj["age"]}</TableCell>
                      </TableRow>
                     )
         })
     }
 
-    render (){
-        const {user_profile, user_type} = this.props;
 
+    render (){
+        const {user_profile, user_type, patient_list_collections} = this.props;
         if(!user_profile || (user_profile && user_type === "PATIENT")){
             return <Redirect to="/404"/>
         }
@@ -112,7 +110,6 @@ class PatientList extends Component {
                             <TableCell>Index</TableCell>
                             <TableCell>Title</TableCell>
                             <TableCell>Patient name</TableCell>
-                            <TableCell>Age</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>

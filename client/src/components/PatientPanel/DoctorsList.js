@@ -75,6 +75,8 @@ class DoctorsList extends Component {
             const work = nested_obj.work;
             const specialization = work.specialization;
 
+            console.log(data, vals);
+
             if(personal_information.first_name.toLowerCase().search(query) !== -1){
                 return data;
             }
@@ -173,7 +175,6 @@ class DoctorsList extends Component {
         
         return (
             <div>
-                {this.renderForm()}
                 {this.displayList()}
             </div>
         )

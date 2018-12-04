@@ -158,7 +158,7 @@ class ManagePatients extends Component {
     }
 
     render(){
-            console.log(this.state.manage_patients);
+            
         return (
             <div>
                 <h2>Manage patients</h2>

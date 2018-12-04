@@ -176,6 +176,28 @@ class ManageDoctors extends Component {
         )
     }
 
+    renderForm = () => {
+        return (
+            <div>
+                <form>
+                    <TextField
+                        id="outlined-full-width"
+                        label="Search"
+                        style={{ margin: 8 }}
+                        placeholder="Search for doctor by their name email, city or specialization"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.filterList.bind(this)}
+                    />
+                </form>
+            </div>
+        )
+    }
+
     render() {
 
         return (
