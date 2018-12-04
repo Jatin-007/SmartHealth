@@ -72,7 +72,7 @@ class PatientRegister extends Component {
         const patients_list_data = {
             [uid]:{
                 name: full_name,
-                gender: this.state.gender
+                gender: this.state.gender,
             }
         }
 
@@ -104,7 +104,7 @@ class PatientRegister extends Component {
         } = this.state;
 
         return (
-            <div>
+            <div className="login-body">
                 <div>
                     <h3>Welcome to the app</h3>
                     <h5>Before proceeding further, please fill out the below form</h5>

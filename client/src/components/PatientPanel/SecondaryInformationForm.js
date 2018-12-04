@@ -42,7 +42,7 @@ class SecondaryInformationForm extends Component {
         const {insurance_information, emergency_contact} = this.state;
 
         return (
-            <div className="patient-register-form">
+            <div className="login-body">
                 {this.state.renderRedirect && <Redirect to="/health-information"/>}
                 <form onSubmit={this.onSubmit.bind(this)}>
                         <h2>Insurance information</h2>

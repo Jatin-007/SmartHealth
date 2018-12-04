@@ -1,3 +1,21 @@
+body{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.landing-body{
+  background: url(../assets/iStock-695349930.jpg) no-repeat;
+  height: 1000px;
+  color: white;
+}
+
+.landing-body > div {
+  /* padding: 100px auto; */
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+}
+
 .register-div{
     width: 40%;
     margin: 20px auto;
@@ -15,6 +33,39 @@
     background-position: center center;
     background-size: cover;
     overflow: hidden; 
+}
+
+
+table.login_table {
+  background-color: rgba(215, 230, 248, 0.733);
+  padding: 3%;
+  font-size: 18px;
+  width: 30%;
+  height: 450px;
+  border: 2px solid rgb(2, 2, 173);
+  vertical-align: middle;
+  margin-right: 10%;
+  margin-left: auto;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  text-align: center;
+}
+
+table.PswdReset{
+  background-color: rgba(215, 230, 248, 0.733);
+  padding: 4%;
+  font-size: 18px;
+  width: 30%;
+  height: 450px;
+  border: 2px solid rgb(1, 1, 66);
+  vertical-align: middle;
+  text-align: center;
+
+}
+
+.login_width{
+  width: 100%;
+  
 }
 
 .patient-register-form {
@@ -355,5 +406,101 @@
   }
   .credit label {
     color: #fff;
+  }
+  
+
+  /* payments */
+
+  
+  a {
+    color: #666;
+  }
+  
+  h1 {
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
+  
+  h4 {
+    margin-bottom: 30px;
+  }
+  
+  .App-payment {
+    padding: 30px;
+  }
+  
+  form {
+    margin: 30px auto 0;
+    max-width: 400px;
+  }
+  
+  .form-actions {
+    margin-top: 15px;
+  }
+  
+  .App-cards {
+    margin: 0 auto;
+    max-width: 1280px;
+    /* text-align: center; */
+  }
+  
+  .App-cards-list {
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .App-cards-list > * {
+    transform: scale(0.8);
+    margin-bottom: 30px !important;
+  }
+  
+  .App-highlight {
+    font-family: serif;
+    margin: 15px auto 0;
+    max-width: 300px;
+  }
+  
+  .App-highlight > div {
+    padding-left: 40px;
+  }
+  
+  .App-badges {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .App-badges a {
+    display: block;
+  }
+  
+  .App-badges a + a {
+    margin-top: 18px;
+  }
+  
+  .App-credits {
+    background-color: #000;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+  }
+  
+  .App-credits a {
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  @media screen and (min-width: 600px) {
+    .App-badges {
+      flex-direction: row;
+    }
+  
+    .App-badges a + a {
+      margin-top: 0;
+      margin-left: 18px;
+    }
   }
   

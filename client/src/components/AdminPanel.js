@@ -6,22 +6,25 @@ class AdminPanel extends Component {
     render (){
         return (
             <div>
-                <h4>Return Admin Panel</h4>
-                <Link to="/manage-doctors">
-                    <Button className="menu-button" color="inherit">
-                        Manage Doctors
-                    </Button>
-                </Link>
-                <Link to="/manage-patients">
-                    <Button className="menu-button" color="inherit">
-                        Manage Patients
-                    </Button>
-                </Link>
-                <Link to="/manage-inventory">
-                    <Button className="menu-button" color="inherit">
-                        Manage inventory
-                    </Button>
-                </Link>
+                <h4>Welcome Back Admin!</h4>
+                <hr/>
+                <div>
+                    <Link to="/manage-doctors">
+                        <Button className="menu-button" color="inherit">
+                            Manage Doctors
+                        </Button>
+                    </Link>
+                    <Link to="/manage-patients">
+                        <Button className="menu-button" color="inherit">
+                            Manage Patients
+                        </Button>
+                    </Link>
+                    <Link to="/manage-inventory">
+                        <Button className="menu-button" color="inherit">
+                            Manage inventory
+                        </Button>
+                    </Link>
+                </div>
             </div>
         )
     }

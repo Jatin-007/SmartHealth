@@ -5,7 +5,7 @@ import DoctorProfileCard from './DoctorProfileCard';
 import TextField from '@material-ui/core/TextField';
 import DatePicker from 'react-datepicker';
 import format from 'date-fns/format'
-import Payment from './Payment'
+import Payment from '../Shared/Payment'
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Switch from '@material-ui/core/Switch';
@@ -13,6 +13,8 @@ import Switch from '@material-ui/core/Switch';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import addMonths from 'date-fns/add_months';
 import { database } from '../../firebase/config';
+import { setDate } from 'date-fns';
+import SnackBar from '../Shared/SnackBar';
 var setHours = require('date-fns/set_hours')
 var setMinutes = require('date-fns/set_minutes')
 
@@ -35,16 +37,24 @@ class DetailDoctorProfile extends Component {
                 name: "",
                 expiry_date: "",
             },
+            doctor_availability: []
         }
 
         this.handleChange = this.handleChange.bind(this);
     }
 
     async componentDidMount(){
+        const {selected_doctor_uid} = this.props;
+
         if(this.props.user_profile){
         const uid = this.props.user_profile.uid;
             await database.ref(`/USERS/PATIENTS/detail_patients_list/${uid}/insurance_information`).on('value', (snapshot) => {
                     this.setState({insurance_information: snapshot.val()});
+            })
+
+            await database.ref(`/USERS/DOCTOR/availability/${selected_doctor_uid}`).on('value', snapshot =>{
+                this.setState({doctor_availability: snapshot.val()})
+                console.log(this.state);
             })
         }
     }
@@ -77,12 +87,31 @@ class DetailDoctorProfile extends Component {
         const uid = this.props.selected_doctor_uid;
         const test = format(date, "MM/DD/YY, HH:mm");
 
+        const split_format = test.split(", ");
+        console.log(split_format);
+        const split_date = split_format[0].split("/");
+        const booked_date = split_date[1];
+        const booked_month = split_date[0];
+        const booked_year = split_date[2];
+
+        const split_time = split_format[1].split(":");
+        const booked_hour = split_time[0];
+        const booked_minute = split_time[1];
+
+        const valid_format = setHours(setMinutes(setDate(new Date(booked_year, booked_month, 1), booked_date), booked_minute), booked_hour);
+            console.warn(valid_format);
+
+        this.setState({
+            doctor_availability: valid_format
+        });
+
         const val = {
-            [uid]: test,
+            [uid]: valid_format,
         }
         
         await database.ref(`/USERS/DOCTOR/availability`).update(val);
-        this.onClose.bind(this);
+        this.setState({open: false});
+        return <SnackBar/>
     }
 
     renderForm(){
@@ -185,7 +214,6 @@ class DetailDoctorProfile extends Component {
                             onChange={e => this.setState({insurance :{ ...insurance, expiry_date: e.target.value}})}
                         />
                     </div>
-    
                 </div>
             )
         }
@@ -228,7 +256,7 @@ class DetailDoctorProfile extends Component {
                             }
                             </div>
 
-                         <Button variant="contained" color="secondary" onClick={() => this.handleSubmit()}>
+                         <Button variant="contained" color="secondary" disabled={this.state.insurance.length < 1} onClick={() => this.handleSubmit()}>
                             Book Appointment!
                         </Button>
                     </div>
@@ -274,7 +302,7 @@ class DetailDoctorProfile extends Component {
                                 dateFormat="MM/DD/YY, HH:mm"
                                 selected={this.state.startDate}
                                 showTimeSelect
-                                excludeTimes={[setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]}
+                                excludeTimes={[this.state.doctor_availability, setHours(setMinutes(setDate(new Date(2018, 12, 1), 5), 0), 15),setHours(setMinutes(new Date(), 0), 17), setHours(setMinutes(new Date(), 30), 18), setHours(setMinutes(new Date(), 30), 19), setHours(setMinutes(new Date(), 30), 17)]}
                                 minDate={new Date()}
                                 maxDate={addMonths(new Date(), 3)}
                                 minTime={setHours(setMinutes(new Date(), 0), 9)}

@@ -27,7 +27,7 @@ class DetailPatientProfile extends Component {
     componentDidMount(){
         
         const {selected_patient_profile} = this.props;
-        
+        console.log(selected_patient_profile);
         const {medications, common_health_information} = selected_patient_profile;
 
 
