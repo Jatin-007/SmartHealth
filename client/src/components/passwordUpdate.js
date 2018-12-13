@@ -20,6 +20,7 @@ class PasswordChangeForm extends Component {
   }
 
   onSubmit = (event) => {
+    event.preventDefault();
     const { passwordOne } = this.state;
 
     auth.doPasswordUpdate(passwordOne)
@@ -29,8 +30,6 @@ class PasswordChangeForm extends Component {
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
-
-    event.preventDefault();
   }
 
   render() {
@@ -45,7 +44,7 @@ class PasswordChangeForm extends Component {
       passwordOne === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit.bind(this)}>
         <input
           value={passwordOne}
           onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}

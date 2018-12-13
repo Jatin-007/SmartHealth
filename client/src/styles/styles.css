@@ -1,5 +1,129 @@
+body{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.landing-body{
+  background: url(../assets/iStock-695349930.jpg) no-repeat;
+  height: 1000px;
+  color: white;
+}
+
+.landing-body > div {
+  /* padding: 100px auto; */
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+}
+
+.register-div{
+    width: 40%;
+    margin: 20px auto;
+    text-align: center;
+    background-color: rgba(215, 230, 248, 0.733);
+    border: 2px solid rgb(2, 2, 173);
+    border-radius: 10px 10px;
+    vertical-align: middle;
+
+}
+
+.login-body{
+    background: url(../assets/iStock-695349930.jpg) no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden; 
+}
+
+
+table.login_table {
+  background-color: rgba(215, 230, 248, 0.733);
+  padding: 3%;
+  font-size: 18px;
+  width: 30%;
+  height: 450px;
+  border: 2px solid rgb(2, 2, 173);
+  vertical-align: middle;
+  margin-right: 10%;
+  margin-left: auto;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  text-align: center;
+}
+
+table.PswdReset{
+  background-color: rgba(215, 230, 248, 0.733);
+  padding: 4%;
+  font-size: 18px;
+  width: 30%;
+  height: 450px;
+  border: 2px solid rgb(1, 1, 66);
+  vertical-align: middle;
+  text-align: center;
+
+}
+
+.login_width{
+  width: 100%;
+  
+}
+
+.patient-register-form {
+    background-color: rgba(215, 230, 248, 0.733);
+    text-align: left;
+    margin: 40px auto;
+    padding-left:10%;
+    padding-right:10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    width: 250px;
+    border: 2px solid  rgb(1, 1, 66);
+    border-radius: 5px 5px;
+    
+}
+
+
+.error {
+    color: red;
+}
+
+.form-name-div > TextFeild{
+    padding: 10px;
+}
+
 .menu-button {
     float: right;
+}
+
+.menubar{
+    border: 2px solid rgb(1, 1, 66);
+    display: flex;
+    justify-content: flex-start;
+    background-color: #15445f;
+}
+
+.SmartHealth{
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    font-family: Georgia;
+    margin-right: auto;
+    align-self: flex-start;
+}
+
+.secondary-buttons {
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+.patient-registered-div {
+    margin: 20px auto;
+}
+
+.register-button-style {
+    margin-top: 20px !important;
+    /* padding: 20px; */
 }
 
 .avatar-header {
@@ -13,3 +137,370 @@
 .profile-avatar{
     border: 1px solid black;
 }
+
+.title-appbar{
+    text-decoration: none;
+}
+
+.patient-register-form {
+    background-color: rgba(215, 230, 248, 0.733);
+    text-align: center;
+    margin: 20px auto;
+    width: 40%;
+    border: 2px solid #aaaaaa;
+    border-radius: 5px 5px;
+}
+
+.patient-register-form-button{
+    float:right;
+    right: 100px;
+    margin-top: 20px !important;
+}
+
+.payment-div{
+    background-color: #f3f3f3;
+    border: 2px double blue;
+    border-radius: 5px 5px;
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Book Appointment */
+.book-appointment-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+    margin: 10px;
+    background-color: #f3f3f3;
+    height: 100%;
+    border-radius: 7px;
+    border: 1px solid #f2f2f2;
+}
+
+.doctor-card-div{
+    width: 30%;
+    margin: 10px;
+    align-content: center;
+}
+
+.doc-image {
+    display: flex;
+    justify-content: center;
+}
+
+.card-action-button-div > Button{
+    display: flex;
+    align-items: flex-end;
+}
+
+/* ERROR PAGE */
+
+.error-page {
+    /* display: flex;
+    background: #00AFF9 url(https://www.ezdia.com/wp-content/uploads/2017/12/404-error-page-background-3.png) center/cover no-repeat;
+    margin: 0;
+    height: 100%;
+    color: white; */
+
+    margin: 10px auto;
+}
+
+.error-page > h2 {
+    margin: .8em 3rem;
+    font: 4em Roboto;
+}
+
+.error-page > p {
+    display: inline-block;
+    margin: .2em 3rem;
+    font: 2em Roboto;
+}
+
+/* doctor appointment */
+.doctor-appointment-form {
+    width: 65%;
+    border: 2px solid #d3d3d3;
+    border-radius: 7px 7px;
+    padding: 10px;
+    margin-left: 5px;
+    box-shadow: 2px 5px 5px red;
+}
+
+.update-button-admin{
+    float: right;
+}
+
+/* New doctor div */
+
+.new-doctor-div{
+    /* display: flex; */
+    /* justify-content: space-between; */
+    padding: 20px;
+    /* flex-wrap: wrap; */
+    margin: 10px;
+    background-color: #f3f3f3;
+    height: 100%;
+    border-radius: 7px;
+    border: 1px solid #f2f2f2;
+}
+
+/* Passworddiv */
+.update-password-div{
+    /* display: flex;
+    justify-content: center; */
+    padding: 10px 20px;
+    /* flex-wrap: wrap; */
+    width: 40%;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    background-color: #f3f3f3;
+    border-radius: 7px;
+    border: 1px solid #d3d3d3;
+}
+
+.update-password-inner-div{
+    width: 80%;
+    margin-top: 20px;
+}
+
+.mini-profile-card{
+    width: 40%;
+    padding: 10px 20px;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+    background-color: #f3f3f3;
+    border-radius: 7px;
+    border: 1px solid #d3d3d3;
+    
+}
+
+.detail-patient-div:hover{
+    cursor: pointer;
+    background-color: #f3f3f3;
+}
+
+/* detail list */
+
+.display-table-list {
+    width: 80%;
+    margin: 10px auto;
+}
+
+/* for user profile */
+#user-profile {
+    width: 100%;
+    max-width: 450px;
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    border-radius: 7px;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px #000;
+    border: 1px solid #000;
+    background-color: #60a568;
+    background-image: radial-gradient(#55965d 15%, transparent 16%), radial-gradient(#55965d 15%, transparent 16%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+  }
+  #user-profile hr {
+    margin: 20px auto;
+    width: 50px;
+    border: 1px solid #6b0a3a;
+    background-color: transparent;
+  }
+  #user-profile h1,
+  #user-profile h2,
+  #user-profile h3,
+  #user-profile h4,
+  #user-profile h5,
+  #user-profile h6,
+  #user-profile p {
+    margin: 0;
+  }
+  #user-profile h2 {
+    font-size: 30px;
+  }
+  #user-profile h3 {
+    font-size: 18px;
+  }
+  #user-profile h4 {
+    font-size: 16px;
+  }
+  #user-profile p {
+    font-size: 14px;
+  }
+  #user-profile .top,
+  #user-profile .bottom {
+    padding: 30px;
+  }
+  #user-profile .bottom {
+    background-color: rgba(255, 255, 255, 0.3);
+    text-align: left;
+  }
+  #user-profile .avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-flex;
+    margin-bottom: 15px;
+    border: 1px solid #000;
+  }
+  #user-profile .avatar img {
+    width: 100%;
+  }
+
+  .modal-div{
+    background-color: #f3f3f3;
+    border: 2px solid red;
+    width: 50%;
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 7px 7px;
+    box-shadow: 2px 2px 2px #6b0a3a;
+  }
+
+  /* credit card */
+  .margin-top50 {
+    margin-top: 50px;
+    margin-left: 30px;
+  }
+  
+  .credit {
+    margin-top: 100px;
+    height: 250px;
+    width: 400px;
+    border: 0;
+    border-radius: 10px;
+    background: url(http://www.psdgraphics.com/file/world-map-background.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+  }
+  .credit__bank {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .credit__mc {
+    width: 80px;
+    float: right;
+  }
+  .credit__card-number {
+    height: 91px;
+    padding-top: 40px;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+  .credit__ccv {
+    height: 24px;
+    float: right;
+    margin-top: -10px;
+    text-transform: uppercase;
+  }
+  .credit__name, .credit__date {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    height: 25px;
+  }
+  .credit label {
+    color: #fff;
+  }
+  
+
+  /* payments */
+
+  
+  a {
+    color: #666;
+  }
+  
+  h1 {
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
+  
+  h4 {
+    margin-bottom: 30px;
+  }
+  
+  .App-payment {
+    padding: 30px;
+  }
+  
+  form {
+    margin: 30px auto 0;
+    max-width: 400px;
+  }
+  
+  .form-actions {
+    margin-top: 15px;
+  }
+  
+  .App-cards {
+    margin: 0 auto;
+    max-width: 1280px;
+    /* text-align: center; */
+  }
+  
+  .App-cards-list {
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .App-cards-list > * {
+    transform: scale(0.8);
+    margin-bottom: 30px !important;
+  }
+  
+  .App-highlight {
+    font-family: serif;
+    margin: 15px auto 0;
+    max-width: 300px;
+  }
+  
+  .App-highlight > div {
+    padding-left: 40px;
+  }
+  
+  .App-badges {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .App-badges a {
+    display: block;
+  }
+  
+  .App-badges a + a {
+    margin-top: 18px;
+  }
+  
+  .App-credits {
+    background-color: #000;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+  }
+  
+  .App-credits a {
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  @media screen and (min-width: 600px) {
+    .App-badges {
+      flex-direction: row;
+    }
+  
+    .App-badges a + a {
+      margin-top: 0;
+      margin-left: 18px;
+    }
+  }
+  

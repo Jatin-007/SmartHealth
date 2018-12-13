@@ -4,8 +4,10 @@ class Landing extends Component {
 
     render () {
         return (
-            <div>
-                <h1>Landing</h1>
+            <div className="landing-body">
+                <div>
+                <h1>Welcome to Smart Health</h1>
+                </div>
             </div>
         )
     }

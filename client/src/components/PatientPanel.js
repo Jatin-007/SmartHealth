@@ -1,17 +1,25 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import BookAppointment from './BookAppointment';
+import {Link, Redirect} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class PatientPanel extends Component {
     render () {
+        const { isRegistered } = this.props;
+
+        if (!isRegistered) {
+            return <Redirect to="/register-patient"/>
+        }
+
         return (
             <div>
                 {
-                    // this.propss.user_type === 'PATIENT'
-                    // &&
-                    <div>
-                        Hope you doing well !
-                        <BookAppointment/>
+                    isRegistered &&
+                    <div className="patient-registered-div">
+                        <Link to="book-appointment">
+                            <Button variant="outlined" color="primary" >
+                                Book Appointment
+                            </Button>
+                        </Link>
                     </div>
                 }
             </div>
@@ -19,16 +27,4 @@ class PatientPanel extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const {
-        user_profile,
-        user_type
-    }= state.authReducer;
-
-    return {
-        user_profile,
-        user_type
-    }
-}
-
-export default connect()(PatientPanel);
+export default PatientPanel;

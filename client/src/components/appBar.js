@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
+import {AppBar, Toolbar, Typography, Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import MenuIcon from '@material-ui/icons/Menu';
 import {auth} from '../firebase/config';
 import {connect} from 'react-redux';
 
@@ -16,7 +15,10 @@ const NavigateNonAuth = () => {
 
 const NavigateAuth = () => {
     return (
-        <Link to="/"><Button className="menu-button" color="inherit" onClick={() => auth.signOut()}>Sign out</Button></Link>
+        <div>
+            <Link to="/update-profile"><Button className="menu-button" color="inherit">Update Profile</Button></Link>
+            <Link to="/"><Button className="menu-button" color="inherit" onClick={() => auth.signOut()}>Sign out</Button></Link>
+        </div>
     )
 }
 
@@ -30,20 +32,19 @@ class ButtonAppBar extends Component {
     render(){
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="static" className="menubar">
                 
                 <Toolbar>
-                    <IconButton color="inherit" aria-label="Menu">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="title" color="inherit">
+                    <Typography variant="title" color="inherit" className="title-appbar">
                     {
                         this.props.user_profile ? 
-                        <Link to="/home">Smart Health</Link> : 
-                        <Link to="/">Smart Health</Link>
-                        }
+                        <Link to="/home" className="SmartHealth">Smart Health</Link> : 
+                        <Link to="/" className="SmartHealth">Smart Health</Link>
+                    }
                     </Typography>
+                    <div className="secondary-buttons">
                     {this.authentication()}
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
