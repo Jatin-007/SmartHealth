@@ -67,3 +67,4 @@ node_modules/
 # removing build from github as theres no use to it
 build/
 .firebase
+firebase/config.js
